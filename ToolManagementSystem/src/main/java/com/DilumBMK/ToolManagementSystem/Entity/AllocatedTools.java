@@ -20,7 +20,7 @@ public class AllocatedTools {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private String id;
 
 
     @ManyToMany

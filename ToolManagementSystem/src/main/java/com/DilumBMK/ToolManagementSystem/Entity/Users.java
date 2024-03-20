@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 public class Users  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_Id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private String user_Id;
 
     @Column(name = "username",nullable = false, unique = true)
     private String username;
