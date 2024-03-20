@@ -16,6 +16,7 @@ public class Projects {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_Id")
     private Long project_Id;
 
     @Column(name = "project_Name")
@@ -24,9 +25,7 @@ public class Projects {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "location_Id")
-    private Location location;
+
 
 
 }

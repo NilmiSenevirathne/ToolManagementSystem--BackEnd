@@ -32,9 +32,6 @@ public class ToolBox {
     @Column(name = "tool_Details")
     private String tool_Details;
 
-    @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "locationId", referencedColumnName = "locationId")
-    Location location;
 
     @Column(name = "timestamp")
     private LocalDateTime timestamp;

@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping ("api/users")
+@RequestMapping (value = "api/v1/user")
+@CrossOrigin
 public class UserController {
 
      private final UserService userService;
@@ -18,6 +19,38 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+
+
+    @GetMapping("/getUser")
+    public String getUser(){
+
+        return "Users";
+    }
+
+
+    @PostMapping("/saveUser")
+    public String saveUser()
+    {
+        return "User saved";
+    }
+
+
+    @PutMapping("/updateUser")
+    public String updateUser()
+    {
+        return "User updated";
+    }
+
+
+    @DeleteMapping("/deleteUser")
+    public String deleteUser()
+    {
+        return "user Deleted";
+    }
+
+
+
 
 
 }

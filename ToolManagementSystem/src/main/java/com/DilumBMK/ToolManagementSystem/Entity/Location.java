@@ -23,10 +23,8 @@ public class Location {
     private Long locationId;
     private String locationName;
 
-    @OneToMany(mappedBy = "location",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Projects> projects = new HashSet<>();
 
-    @OneToOne(mappedBy = "location", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private ToolBox toolBox;
+    //@OneToOne(mappedBy = "location", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   // private ToolBox toolBox;
 
 }
