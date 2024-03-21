@@ -38,9 +38,9 @@ public class LoginController {
 
     }
 
-    @GetMapping("/viewallstudent")
+    @GetMapping("/viewAllUser")
     @ResponseBody
-    public ResponseEntity<List<User>> listStudent() {
+    public ResponseEntity<List<User>> listUser() {
         Iterable<User> studentList = loginRepo.findAll();
         return ResponseEntity.ok((List<User>) studentList);
     }
