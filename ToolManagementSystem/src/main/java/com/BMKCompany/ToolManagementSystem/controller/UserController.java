@@ -16,8 +16,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @DeleteMapping("/deleteUser/{id}")
-    String deleteUser(@PathVariable Long id){ // Corrected the path variable name to 'id'
+        String deleteUser(@PathVariable Long id){ // Corrected the path variable name to 'id'
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException(id);
         }
