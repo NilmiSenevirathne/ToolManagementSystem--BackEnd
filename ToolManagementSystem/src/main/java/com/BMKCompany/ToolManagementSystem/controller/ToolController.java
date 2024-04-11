@@ -1,7 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 import com.BMKCompany.ToolManagementSystem.exception.ToolNotFoundException;
-import com.BMKCompany.ToolManagementSystem.exception.UserNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class ToolController {
     @DeleteMapping("/delete/{id}")
     String deleteTool(@PathVariable Long id){
         if(!toolRepo.existsById(id)){
-            throw new UserNotFoundException(id);
+            throw new ToolNotFoundException(id);
         }
         toolRepo.deleteById(id);
         return  "Tool "+id+ "has been deleted success";

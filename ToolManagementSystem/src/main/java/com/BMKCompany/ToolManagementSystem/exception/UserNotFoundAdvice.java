@@ -13,13 +13,11 @@ import java.util.Map;
 public class UserNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String,String> exceptionHandler(UserNotFoundException exception)
-    {
-        Map<String,String> errorMap=new HashMap<>();
+    public Map<String, String> exceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException exception) {
+        Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
-
         return errorMap;
     }
 }
