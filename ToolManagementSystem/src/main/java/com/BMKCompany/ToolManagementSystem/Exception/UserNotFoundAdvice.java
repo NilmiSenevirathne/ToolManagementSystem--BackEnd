@@ -1,4 +1,4 @@
-package com.BMKCompany.ToolManagementSystem.Exception;
+package com.BMKCompany.ToolManagementSystem.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +13,9 @@ import java.util.Map;
 public class UserNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> exceptionHandler(UserNotFoundException exception) {
+    public Map<String, String> exceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException exception) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
         return errorMap;
