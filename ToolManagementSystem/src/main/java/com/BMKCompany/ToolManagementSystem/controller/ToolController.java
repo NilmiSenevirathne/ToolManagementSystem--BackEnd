@@ -4,13 +4,13 @@ import com.BMKCompany.ToolManagementSystem.exception.ToolNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/tool")
 public class ToolController {
 
@@ -28,42 +28,43 @@ public class ToolController {
 
     //get tools details from toolid
     @GetMapping("/gettools/{id}")
-    Tool getToolById(@PathVariable Long id){
+    Tool getToolById(@PathVariable String id){
         return toolRepo.findById(id)
                 .orElseThrow(() -> new ToolNotFoundException(id) );
     }
 
     //enter new tool to the database
-    @PostMapping("/createtool")
-    public Tool newTool(@RequestBody Tool newTool)
-    {
-        return toolRepo.save(newTool);
+    @PostMapping("/create")
+    public ResponseEntity<Tool> newTool(@RequestBody Tool newTool) {
+        try {
+            Tool savedTool = toolRepo.save(newTool);
+            System.out.println("New Tool Successfully Added!");
+            return ResponseEntity.ok(savedTool);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
     }
 
 
     //update tool details
-    @PutMapping("/tool/{id}")
-    Tool updateTool(@RequestBody Tool newTool , @PathVariable Long id){
+    /*@PutMapping("/update/{id}")
+    public ResponseEntity<Tool> updateTool(@RequestBody Tool updatedTool, @PathVariable String id) {
         return toolRepo.findById(id)
                 .map(tool -> {
-                    tool.setToolname(newTool.getToolname());
-                    tool.setDescription(newTool.getDescription());
-                    tool.setSavedQuantity(newTool.getSavedQuantity());
-                    tool.setAllocatedQuantity(newTool.getAllocatedQuantity());
-                    return toolRepo.save(tool);
-                }).orElseThrow(()-> new ToolNotFoundException(id));
-    }
+                    tool.setToolName(updatedTool.getToolName());
+                    tool.setDescription(updatedTool.getDescription());
+                    tool.setTotalQuantity(updatedTool.getTotalQuantity());
+                    Tool savedTool = toolRepo.save(tool);
+                    return ResponseEntity.ok(savedTool);
+                }).orElse(ResponseEntity.notFound().build());
+    }*/
 
-    //delete tool details from the inventory
-    @DeleteMapping("/delete/{id}")
-    String deleteTool(@PathVariable Long id){
-        if(!toolRepo.existsById(id)){
-            throw new ToolNotFoundException(id);
-        }
-        toolRepo.deleteById(id);
-        return  "Tool "+id+ "has been deleted success";
-    }
+
+
 
     
 
-}
+
