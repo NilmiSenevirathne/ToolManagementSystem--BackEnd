@@ -67,6 +67,24 @@ public class ToolController {
         }
     }
 
+    //delete tool details from the inventory
+    @DeleteMapping("/delete/{toolId}")
+    public ResponseEntity<String> deleteTool(@PathVariable ("toolId") String toolId)
+    {
+        try{
+            Optional<Tool> toolOptional = toolRepo.findById(toolId);
+            if(toolOptional.isPresent()){
+                toolRepo.deleteById(toolId);
+                return ResponseEntity.ok("Tool deleted successfully");
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
+        }
+    }
+
 
 }
 
