@@ -17,17 +17,5 @@ public class ToolService {
     }
 
     //Implement methods in the service class to save tools, allocate tools, and update the quantity values accordingly.
-    public Tool allocateTool(Long toolId, int quantitiyToAllocate)
-    {
-        Tool tool = toolRepo.findById(toolId).orElse(null);
 
-        if(tool !=null && tool.getSavedQuantity() >= quantitiyToAllocate)
-        {
-            tool.setSavedQuantity(tool.getSavedQuantity() - quantitiyToAllocate);
-            return  toolRepo.save(tool);
-        }
-        else {
-            return null;
-        }
-    }
 }

@@ -8,29 +8,27 @@ import jakarta.persistence.*;
 public class Tool {
 
     @Id
-    @GeneratedValue
-     private Long toolId;
-
-    private String toolname;
+    private String toolId;
+    private String toolName;
     private String description;
-    private int savedQuantity;
-    private int allocatedQuantity;
+    private int quantity;
 
-    public Long getToolId() {
+
+    public String getToolId() {
         return toolId;
     }
 
-    public void setToolId(Long toolId) {
+    public void setToolId(String toolId) {
         this.toolId = toolId;
     }
 
-    public String getToolname() {
+    public String getToolName() {
 
-        return toolname;
+        return toolName;
     }
 
-    public void setToolname(String toolname) {
-        this.toolname = toolname;
+    public void setToolName(String toolName) {
+        this.toolName = toolName;
     }
 
     public String getDescription() {
@@ -41,19 +39,13 @@ public class Tool {
         this.description = description;
     }
 
-    public int getSavedQuantity() {
-        return savedQuantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setSavedQuantity(int savedQuantity) {
-        this.savedQuantity = savedQuantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public int getAllocatedQuantity() {
-        return allocatedQuantity;
-    }
 
-    public void setAllocatedQuantity(int allocatedQuantity) {
-        this.allocatedQuantity = allocatedQuantity;
-    }
 }
