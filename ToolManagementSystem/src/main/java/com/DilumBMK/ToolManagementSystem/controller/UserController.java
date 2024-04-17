@@ -40,7 +40,8 @@ public class UserController {
                 .orElseThrow(()->new UserNotFoundException(id));
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("" +
+            "")
     User updateUser(@RequestBody User newUser,@PathVariable Long id){
             return userRepository.findById(id)
                     .map(user -> {
@@ -54,6 +55,14 @@ public class UserController {
                     }).orElseThrow(()->new UserNotFoundException(id));
 
 
+        }
+    @DeleteMapping("/deleteUser/{id}")
+    String deleteUser(@PathVariable Long id){ // Corrected the path variable name to 'id'
+        if(!userRepository.existsById(id)){
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+        return "User with id "+id+" has been deleted! ";
         }
     }
 
