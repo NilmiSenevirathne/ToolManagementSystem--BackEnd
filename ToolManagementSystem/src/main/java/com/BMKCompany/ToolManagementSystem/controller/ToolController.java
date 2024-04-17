@@ -4,66 +4,98 @@ import com.BMKCompany.ToolManagementSystem.exception.ToolNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/tool")
 public class ToolController {
 
     @Autowired
-     private ToolRepo toolRepo;
+    private ToolRepo toolRepo;
 
 
     //retrieve tools data from database
     @GetMapping("/gettools")
-    public List<Tool> getTools()
-    {
+    public List<Tool> getTools() {
         return toolRepo.findAll();
     }
 
 
     //get tools details from toolid
-    @GetMapping("/gettools/{id}")
-    Tool getToolById(@PathVariable Long id){
-        return toolRepo.findById(id)
-                .orElseThrow(() -> new ToolNotFoundException(id) );
+    @GetMapping("/gettool/{toolId}")
+    public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
+        Optional<Tool> tool = toolRepo.findById(toolId);
+        return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     //enter new tool to the database
-    @PostMapping("/createtool")
-    public Tool newTool(@RequestBody Tool newTool)
-    {
-        return toolRepo.save(newTool);
+    @PostMapping("/create")
+    public ResponseEntity<Tool> newTool(@RequestBody Tool newTool) {
+        try {
+            Tool savedTool = toolRepo.save(newTool);
+            System.out.println("New Tool Successfully Added!");
+            return ResponseEntity.ok(savedTool);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
+    // Inside updateTool method
+    @PutMapping("/update/{toolId}")
+    public ResponseEntity<Tool> updateTool(@RequestBody Tool newTool, @PathVariable("toolId") String toolId){
 
-    //update tool details
-    @PutMapping("/tool/{id}")
-    Tool updateTool(@RequestBody Tool newTool , @PathVariable Long id){
-        return toolRepo.findById(id)
-                .map(tool -> {
-                    tool.setToolname(newTool.getToolname());
-                    tool.setDescription(newTool.getDescription());
-                    tool.setSavedQuantity(newTool.getSavedQuantity());
-                    tool.setAllocatedQuantity(newTool.getAllocatedQuantity());
-                    return toolRepo.save(tool);
-                }).orElseThrow(()-> new ToolNotFoundException(id));
+        try {
+            Optional<Tool> existingToolOptional = toolRepo.findById(toolId);
+            if (existingToolOptional.isPresent()) {
+                Tool existingTool = existingToolOptional.get();
+                existingTool.setToolName(newTool.getToolName());
+                existingTool.setDescription(newTool.getDescription());
+                existingTool.setQuantity(newTool.getQuantity());
+                Tool updatedTool = toolRepo.save(existingTool);
+                return ResponseEntity.ok(updatedTool);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //delete tool details from the inventory
-    @DeleteMapping("/delete/{id}")
-    String deleteTool(@PathVariable Long id){
-        if(!toolRepo.existsById(id)){
-            throw new ToolNotFoundException(id);
+    @DeleteMapping("/delete/{toolId}")
+    public ResponseEntity<String> deleteTool(@PathVariable ("toolId") String toolId)
+    {
+        try{
+            Optional<Tool> toolOptional = toolRepo.findById(toolId);
+            if(toolOptional.isPresent()){
+                toolRepo.deleteById(toolId);
+                return ResponseEntity.ok("Tool deleted successfully");
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
         }
-        toolRepo.deleteById(id);
-        return  "Tool "+id+ "has been deleted success";
     }
 
-    
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
