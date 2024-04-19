@@ -1,28 +1,42 @@
 package com.BMKCompany.ToolManagementSystem.model;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.sql.Blob;
 
 @Entity
-public class Tool {
-
+public class Tools {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue
-     private Long tool_id;
+    private String tool_id;
 
-     private String allocated_quantity;
+    private byte[] pic;
+    private String allocated_quantity;
 
-     private String description;
+    private String description;
 
-     private String saved_quantity;
+    private String saved_quantity;
 
-     private String tool_name;
+    private String tool_name;
 
 
-    public Long getToolid() {
+    public String getToolid() {
         return tool_id;
     }
-
-    public void setTool_id(Long tool_id) {
+    public void setToolid(String tool_id) {
         this.tool_id= tool_id;
+    }
+    public byte[] getImage() {
+        return pic;
+    }
+    public void setImage(byte[] pic) {
+        this.pic = pic;
     }
 
     public String getAllocated_quantity() {
@@ -52,9 +66,8 @@ public class Tool {
         return tool_name;
     }
 
-    public void setTool_id(String tool_name) {
+    public void setTool_name(String tool_name) {
         this.tool_name= tool_name;
     }
-
 
 }

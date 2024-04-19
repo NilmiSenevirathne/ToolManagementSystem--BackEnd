@@ -1,6 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
-import com.BMKCompany.ToolManagementSystem.model.Tool;
+import com.BMKCompany.ToolManagementSystem.model.Tools;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +17,12 @@ public class ToolController {
     private ToolRepository toolRepository;
 
     @GetMapping("/gettools")
-    List<Tool> getAllTools()
+    List<Tools> getAllTools()
     {
         return toolRepository.findAll();
     }
     @PostMapping("/addtool")
-    Tool addTools(@RequestBody Tool addTools)
+    Tools addTools(@RequestBody Tools addTools)
     {
         return toolRepository.save(addTools);
     }
