@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -33,6 +35,14 @@ public class ToolController {
         return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    //Check toolId already exists in the system
+    @GetMapping("/check/{toolId}")
+    public ResponseEntity<Map<String,Boolean>> checkToolIdExists(@PathVariable String toolId){
+        boolean exists = toolRepo.existsById(toolId);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("exists",exists);
+        return ResponseEntity.ok(response);
+    }
 
     //enter new tool to the database
     @PostMapping("/create")

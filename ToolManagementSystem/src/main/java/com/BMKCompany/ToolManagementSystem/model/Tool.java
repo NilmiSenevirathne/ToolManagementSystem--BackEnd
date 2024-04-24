@@ -12,6 +12,8 @@ public class Tool {
     private String toolName;
     private String description;
     private int quantity;
+    private int allocatedTool;
+    private int availableTool;
 
 
     public String getToolId() {
@@ -47,5 +49,20 @@ public class Tool {
         this.quantity = quantity;
     }
 
+    public int getAllocatedTool() {
+        return allocatedTool;
+    }
 
+    public void setAllocatedTool(int allocatedTool) {
+        this.allocatedTool = allocatedTool;
+
+    }
+
+    public int getAvailableTool() {
+        return availableTool;
+    }
+
+    public void setAvailableTool(int availableTool) {
+        this.availableTool = availableTool;
+    }
 }
