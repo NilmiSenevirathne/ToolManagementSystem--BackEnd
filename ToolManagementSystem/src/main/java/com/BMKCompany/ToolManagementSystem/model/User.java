@@ -15,6 +15,7 @@ public class User {
     private String lastname;
     private String nic;
     private int contact;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
