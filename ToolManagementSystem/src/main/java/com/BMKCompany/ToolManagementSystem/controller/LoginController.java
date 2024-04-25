@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/authentication")
 public class LoginController {
