@@ -20,6 +20,7 @@ public class LoginController {
 
     @Autowired
     private LoginRepo loginRepo;
+    private Object userList;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
@@ -28,8 +29,10 @@ public class LoginController {
 
         User user = loginRepo.findByUsernameAndPassword(username, password);
 
+
         if (user != null) {
             return ResponseEntity.ok(user.getRole().toString());
+
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
 
@@ -41,6 +44,6 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<List<User>> listUser() {
         Iterable<User> studentList = loginRepo.findAll();
-        return ResponseEntity.ok((List<User>) studentList);
+        return ResponseEntity.ok((List<User>) userList);
     }
 }
