@@ -1,4 +1,8 @@
 package com.BMKCompany.ToolManagementSystem.repository;
 
-public interface LocationRepository {
+import com.BMKCompany.ToolManagementSystem.model.Location;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LocationRepository extends JpaRepository<Location,String > {
+
 }

@@ -8,7 +8,7 @@ public class Location {
 
     @Id
     private String locationId;
-    private String getLocationName;
+    private String locationName;
 
     public String getLocationId() {
         return locationId;
@@ -18,11 +18,11 @@ public class Location {
         this.locationId = locationId;
     }
 
-    public String getGetLocationName() {
-        return getLocationName;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setGetLocationName(String getLocationName) {
-        this.getLocationName = getLocationName;
+    public void seLocationName(String LocationName) {
+        this.locationName = locationName;
     }
 }
