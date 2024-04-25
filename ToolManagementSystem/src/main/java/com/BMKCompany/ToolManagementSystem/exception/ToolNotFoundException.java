@@ -1,4 +1,4 @@
-package com.BMKCompany.ToolManagementSystem.exception;
+package com.BMKCompany.ToolManagementSystem.Exception;
 
 public class ToolNotFoundException extends RuntimeException{
 
