@@ -1,9 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
-<<<<<<< Updated upstream
-import com.BMKCompany.ToolManagementSystem.exception.ToolNotFoundException;
-=======
->>>>>>> Stashed changes
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;

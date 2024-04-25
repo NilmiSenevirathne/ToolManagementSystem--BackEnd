@@ -1,4 +1,4 @@
-package com.BMKCompany.ToolManagementSystem.exception;
+package com.BMKCompany.ToolManagementSystem.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
