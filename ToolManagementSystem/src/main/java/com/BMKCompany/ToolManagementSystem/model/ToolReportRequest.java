@@ -3,18 +3,18 @@ package com.BMKCompany.ToolManagementSystem.model;
 import java.util.List;
 
 public class ToolReportRequest {
-    private List<Tools> selectedTools;
+    private List<Tool> selectedTools;
     private String projectName;
 
     public String getProjectName() {
         return projectName;
     }
 
-    public List<Tools> getSelectedTools() {
+    public List<Tool> getSelectedTools() {
         return selectedTools;
     }
 
-    public void setSelectedTools(List<Tools> selectedTools) {
+    public void setSelectedTools(List<Tool> selectedTools) {
         this.selectedTools = selectedTools;
     }
 
