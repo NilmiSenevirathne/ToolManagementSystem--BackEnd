@@ -1,7 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
-
-
 import java.util.List;
 
 
@@ -19,19 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin (origins = "*")
 @RequestMapping ("/authentication")
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/authentication")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-
-    @DeleteMapping("/deleteUser/{id}")
-        String deleteUser(@PathVariable Long id){ // Corrected the path variable name to 'id'
-        if(!userRepository.existsById(id)){
-            throw new UserNotFoundException(id);
-        }
-        userRepository.deleteById(id);
-        return "User with id "+id+" has been deleted! "; // Added space after 'id'
-
-    }
 }

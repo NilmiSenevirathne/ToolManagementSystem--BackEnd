@@ -1,4 +1,20 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+import com.BMKCompany.ToolManagementSystem.Service.RequiredtoolreportService;
+import com.BMKCompany.ToolManagementSystem.model.Requiredtoolreports;
+import com.BMKCompany.ToolManagementSystem.repository.RequiredtoolreportsRepository;
+import org.springframework.beans.factory.annotation.Value;
+import java.io.IOException;
+import com.BMKCompany.ToolManagementSystem.model.Tool;
+import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import com.BMKCompany.ToolManagementSystem.Service.ToolService;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
@@ -28,8 +44,10 @@ public class ToolController {
     //retrieve tools data from database
     @GetMapping("/gettools")
     List<Tool> getAllTools() {
-        return toolRepo.findAll();
-    }
+
+
+    //retrieve tools data from database
+    
 
     @PostMapping("/addtool")
     Tool addTools(@RequestBody Tool addTools) {
