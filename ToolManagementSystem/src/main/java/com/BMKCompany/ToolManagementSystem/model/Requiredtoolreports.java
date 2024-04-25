@@ -11,7 +11,7 @@ public class Requiredtoolreports {
     private Long report_id;
 
     @Lob
-    @Column(name = "report_data")
+    @Column(name = "report_data", columnDefinition = "LONGBLOB")
     private byte[] report_data;
 
     @Column(name = "created_at")
