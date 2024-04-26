@@ -1,6 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 
+import com.BMKCompany.ToolManagementSystem.model.User;
 import com.BMKCompany.ToolManagementSystem.repository.LoginRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class LoginController {
     @GetMapping("/viewAllUser")
     @ResponseBody
     public ResponseEntity<List<User>> listUser() {
-        Iterable<User> studentList = loginRepo.findAll();
+        Iterable<User> userList = loginRepo.findAll();
         return ResponseEntity.ok((List<User>) userList);
     }
 }
