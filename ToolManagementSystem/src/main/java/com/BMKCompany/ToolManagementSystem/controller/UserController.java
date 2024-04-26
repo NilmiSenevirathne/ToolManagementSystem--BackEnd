@@ -22,13 +22,4 @@ public class UserController {
     private UserRepository userRepository;
 
 
-    @DeleteMapping("/deleteUser/{id}")
-        String deleteUser(@PathVariable Long id){ // Corrected the path variable name to 'id'
-        if(!userRepository.existsById(id)){
-            throw new UserNotFoundException(id);
-        }
-        userRepository.deleteById(id);
-        return "User with id "+id+" has been deleted! "; // Added space after 'id'
-
-    }
 }
