@@ -3,10 +3,9 @@ import com.BMKCompany.ToolManagementSystem.model.Location;
 
 import com.BMKCompany.ToolManagementSystem.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -22,6 +21,8 @@ public class LocationController {
 
     }
 
+    @GetMapping("/locations")
+    List<Location> getAllLocations(){return locationRepository.findAll();}
 
 
 

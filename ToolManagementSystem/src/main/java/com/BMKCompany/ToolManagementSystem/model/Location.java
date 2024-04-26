@@ -22,7 +22,7 @@ public class Location {
         return locationName;
     }
 
-    public void seLocationName(String LocationName) {
+    public void setLocationName(String locationName) {
         this.locationName = locationName;
     }
 }
