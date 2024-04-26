@@ -2,8 +2,8 @@ package com.BMKCompany.ToolManagementSystem.model;
 
 public enum Role {
 
-    Admin,
-    Manager,
-    StockSupervisor,
+   Admin,
+  Manager,
+  StockSupervisor,
     SiteSupervisor
 }

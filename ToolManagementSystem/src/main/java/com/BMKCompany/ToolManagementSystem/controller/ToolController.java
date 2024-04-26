@@ -1,6 +1,9 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
-import com.BMKCompany.ToolManagementSystem.exception.ToolNotFoundException;
+import com.BMKCompany.ToolManagementSystem.Service.RequiredtoolreportService;
+import com.BMKCompany.ToolManagementSystem.model.Requiredtoolreports;
+import com.BMKCompany.ToolManagementSystem.repository.RequiredtoolreportsRepository;
+import org.springframework.beans.factory.annotation.Value;
+import java.io.IOException;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import com.BMKCompany.ToolManagementSystem.Service.ToolService;
+import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/tool")
+@RequestMapping("tool")
 public class ToolController {
 
     @Autowired
@@ -27,13 +41,12 @@ public class ToolController {
         return toolRepo.findAll();
     }
 
-
     //get tools details from toolid
     @GetMapping("/gettool/{toolId}")
-    public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
+   public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
         Optional<Tool> tool = toolRepo.findById(toolId);
         return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
+   }
 
     //Check toolId already exists in the system
     @GetMapping("/check/{toolId}")
@@ -96,7 +109,20 @@ public class ToolController {
     }
 
 
+    //get total quantity of the tools from the database and calculate total quantity of available tools
+    @GetMapping("/availableTools")
+    public ResponseEntity<Integer> calculateAvailableQuantity(){
+        List <Tool> allTools = toolRepo.findAll();
+        int availableQuantity = 0;
+        for(Tool tool: allTools){
+            availableQuantity += tool.getQuantity();
+        }
+        return ResponseEntity.ok(availableQuantity);
+    }
+
+
 }
+
 
 
 
