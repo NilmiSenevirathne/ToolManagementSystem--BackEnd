@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin (origins = "*")
 @RequestMapping ("/authentication")
-@RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/authentication")
+
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
 
 }
