@@ -4,6 +4,6 @@ public enum Role {
 
    Admin,
   Manager,
- StockSupervisor,
+  StockSupervisor,
     SiteSupervisor
 }
