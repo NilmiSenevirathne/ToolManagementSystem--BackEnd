@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ProjectController {
     @Autowired
     private ProjectRepository projectRepository;
