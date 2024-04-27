@@ -1,7 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.Exception;
 
+import com.BMKCompany.ToolManagementSystem.model.Project;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
-public class UserNotFoundAdvice {
+
+public class ProjectNotFoundAdvice {
+
 
     @ResponseBody
-    @ExceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException.class)
+    @ExceptionHandler(ProjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> exceptionHandler(com.BMKCompany.ToolManagementSystem.Exception.UserNotFoundException exception) {
-        Map<String, String> errorMap = new HashMap<>();
+    public Map<String,String>exceptionHandler(ProjectNotFoundException exception){
+        Map<String,String> errorMap=new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
         return errorMap;
     }

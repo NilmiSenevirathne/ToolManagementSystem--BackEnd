@@ -15,118 +15,109 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import com.BMKCompany.ToolManagementSystem.Service.ToolService;
-import com.BMKCompany.ToolManagementSystem.model.Tool;
-
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-
-
-@CrossOrigin ("http://localhost:3000")
 @RestController
-
+@RequestMapping("tool")
 public class ToolController {
 
     @Autowired
     private ToolRepo toolRepo;
-    private ToolService  toolService;
+
 
     //retrieve tools data from database
     @GetMapping("/gettools")
-    List<Tool> getAllTools() {
-
-             return toolRepo.findAll();
-        //retrieve tools data from database
+    public List<Tool> getTools() {
+        return toolRepo.findAll();
     }
-
-    @PostMapping("/addtool")
-    Tool addTools(@RequestBody Tool addTools) {
-        return toolRepo.save(addTools);
-    }
-}
-
-
-
 
     //get tools details from toolid
-//    @GetMapping("/gettool/{toolId}")
-//    public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
-//        Optional<Tool> tool = toolepo.findById(toolId);
-//        return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-//
-//    //Check toolId already exists in the system
-//    @GetMapping("/check/{toolId}")
-//    public ResponseEntity<Map<String,Boolean>> checkToolIdExists(@PathVariable String toolId){
-//        boolean exists = toolRepo.existsById(toolId);
-//        Map<String,Boolean> response = new HashMap<>();
-//        response.put("exists",exists);
-//        return ResponseEntity.ok(response);
-//    }
-//
-//    //enter new tool to the database
-//    @PostMapping("/create")
-//    public ResponseEntity<Tool> newTool(@RequestBody Tool newTool) {
-//        try {
-//            Tool savedTool = toolRepo.save(newTool);
-//            System.out.println("New Tool Successfully Added!");
-//            return ResponseEntity.ok(savedTool);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-//
-//    // Inside updateTool method
-//    @PutMapping("/update/{toolId}")
-//    public ResponseEntity<Tool> updateTool(@RequestBody Tool newTool, @PathVariable("toolId") String toolId){
-//
-//        try {
-//            Optional<Tool> existingToolOptional = toolRepo.findById(toolId);
-//            if (existingToolOptional.isPresent()) {
-//                Tool existingTool = existingToolOptional.get();
-//                existingTool.setToolName(newTool.getToolName());
-//                existingTool.setDescription(newTool.getDescription());
-//                existingTool.setQuantity(newTool.getQuantity());
-//                Tool updatedTool = toolRepo.save(existingTool);
-//                return ResponseEntity.ok(updatedTool);
-//            } else {
-//                return ResponseEntity.notFound().build();
-//            }
-//        }catch (Exception e){
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-//
-//    //delete tool details from the inventory
-//    @DeleteMapping("/delete/{toolId}")
-//    public ResponseEntity<String> deleteTool(@PathVariable ("toolId") String toolId)
-//    {
-//        try{
-//            Optional<Tool> toolOptional = toolRepo.findById(toolId);
-//            if(toolOptional.isPresent()){
-//                toolRepo.deleteById(toolId);
-//                return ResponseEntity.ok("Tool deleted successfully");
-//            }
-//            else{
-//                return ResponseEntity.notFound().build();
-//            }
-//        }catch(Exception e){
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
-//        }
-//    }
+    @GetMapping("/gettool/{toolId}")
+   public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
+        Optional<Tool> tool = toolRepo.findById(toolId);
+        return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+   }
+
+    //Check toolId already exists in the system
+    @GetMapping("/check/{toolId}")
+    public ResponseEntity<Map<String,Boolean>> checkToolIdExists(@PathVariable String toolId){
+        boolean exists = toolRepo.existsById(toolId);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("exists",exists);
+        return ResponseEntity.ok(response);
+    }
+
+    //enter new tool to the database
+    @PostMapping("/create")
+    public ResponseEntity<Tool> newTool(@RequestBody Tool newTool) {
+        try {
+            Tool savedTool = toolRepo.save(newTool);
+            System.out.println("New Tool Successfully Added!");
+            return ResponseEntity.ok(savedTool);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    // Inside updateTool method
+    @PutMapping("/update/{toolId}")
+    public ResponseEntity<Tool> updateTool(@RequestBody Tool newTool, @PathVariable("toolId") String toolId){
+
+        try {
+            Optional<Tool> existingToolOptional = toolRepo.findById(toolId);
+            if (existingToolOptional.isPresent()) {
+                Tool existingTool = existingToolOptional.get();
+                existingTool.setToolName(newTool.getToolName());
+                existingTool.setDescription(newTool.getDescription());
+                existingTool.setQuantity(newTool.getQuantity());
+                Tool updatedTool = toolRepo.save(existingTool);
+                return ResponseEntity.ok(updatedTool);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    //delete tool details from the inventory
+    @DeleteMapping("/delete/{toolId}")
+    public ResponseEntity<String> deleteTool(@PathVariable ("toolId") String toolId)
+    {
+        try{
+            Optional<Tool> toolOptional = toolRepo.findById(toolId);
+            if(toolOptional.isPresent()){
+                toolRepo.deleteById(toolId);
+                return ResponseEntity.ok("Tool deleted successfully");
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
+        }
+    }
 
 
-//}
+    //get total quantity of the tools from the database and calculate total quantity of available tools
+    @GetMapping("/availableTools")
+    public ResponseEntity<Integer> calculateAvailableQuantity(){
+        List <Tool> allTools = toolRepo.findAll();
+        int availableQuantity = 0;
+        for(Tool tool: allTools){
+            availableQuantity += tool.getQuantity();
+        }
+        return ResponseEntity.ok(availableQuantity);
+    }
+
+
+}
 
 
 

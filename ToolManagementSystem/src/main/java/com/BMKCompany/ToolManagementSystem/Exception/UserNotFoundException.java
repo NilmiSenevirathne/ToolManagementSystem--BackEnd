@@ -1,4 +1,4 @@
-package com.BMKCompany.ToolManagementSystem.Exception;
+package com.BMKCompany.ToolManagementSystem.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long userid) {
