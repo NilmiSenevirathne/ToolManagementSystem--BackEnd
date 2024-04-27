@@ -44,7 +44,6 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<List<User>> listUser() {
         Iterable<User>  userList = loginRepo.findAll();
-        Iterable<User> userList = loginRepo.findAll();
         return ResponseEntity.ok((List<User>) userList);
     }
 }
