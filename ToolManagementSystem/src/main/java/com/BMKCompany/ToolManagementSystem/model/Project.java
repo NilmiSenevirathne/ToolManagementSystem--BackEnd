@@ -1,66 +1,67 @@
 package com.BMKCompany.ToolManagementSystem.model;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="project")
 public class Project {
-
     @Id
-    private String projectId;
-    private String ProjectName;
-    private String Description;
-    private String SiteSupervisorID;
-    private String SiteSupervisorName;
-    private String locationId;
+    private String project_id;
+    private String description;
+    private String project_name;
+    private String site_supervisorid;
+    private String site_supervisor_name;
+    private String location_id;
 
-    public String getProjectId() {
-        return projectId;
+
+    public String getProject_id() {
+        return project_id;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getProjectName() {
-        return ProjectName;
-    }
-
-    public void setProjectName(String projectName) {
-        ProjectName = projectName;
+    public void setProject_id(String project_id) {
+        this.project_id = project_id;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public String getSiteSupervisorID() {
-        return SiteSupervisorID;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setSiteSupervisorID(String siteSupervisorID) {
-        SiteSupervisorID = siteSupervisorID;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
-    public String getSiteSupervisorName() {
-        return SiteSupervisorName;
+    public String getSite_supervisorid() {
+        return site_supervisorid;
     }
 
-    public void setSiteSupervisorName(String siteSupervisorName) {
-        SiteSupervisorName = siteSupervisorName;
+    public void setSite_supervisorid(String site_supervisorid) {
+        this.site_supervisorid = site_supervisorid;
     }
 
-    public String getLocationId() {
-        return locationId;
+    public String getSite_supervisor_name() {
+        return site_supervisor_name;
     }
 
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
+    public void setSite_supervisor_name(String site_supervisor_name) {
+        this.site_supervisor_name = site_supervisor_name;
+    }
+
+    public String getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(String location_id) {
+        this.location_id = location_id;
     }
 
 
-}
+
