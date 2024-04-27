@@ -1,10 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
-import com.BMKCompany.ToolManagementSystem.model.Project;
-import com.BMKCompany.ToolManagementSystem.repository.ProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -52,5 +48,6 @@ public class ProjectController {
         projectRepository.deleteById(projectId);
         return "Project with id " +projectId +" has been deleted successfully";
     }
+
 
 }
