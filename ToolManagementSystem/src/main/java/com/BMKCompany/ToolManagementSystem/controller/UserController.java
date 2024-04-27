@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 
 
-@RestController
-@CrossOrigin (origins = "*")
-@RequestMapping ("/authentication")
+
+
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/authentication")

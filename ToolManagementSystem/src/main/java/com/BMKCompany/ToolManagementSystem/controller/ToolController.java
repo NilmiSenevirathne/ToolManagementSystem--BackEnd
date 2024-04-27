@@ -45,9 +45,9 @@ public class ToolController {
     @GetMapping("/gettools")
     List<Tool> getAllTools() {
 
-
-    //retrieve tools data from database
-    
+             return toolRepo.findAll();
+        //retrieve tools data from database
+    }
 
     @PostMapping("/addtool")
     Tool addTools(@RequestBody Tool addTools) {
