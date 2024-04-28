@@ -1,7 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Project;
-import com.BMKCompany.ToolManagementSystem.repository.ProjectRepository;
+import com.BMKCompany.ToolManagementSystem.repository.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectRepo projectRepository;
 
     @PostMapping("/project")
     Project newProject(@RequestBody Project newProject) {
