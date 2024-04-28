@@ -32,6 +32,7 @@ public class ProjectController {
                 .orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
 
+
     @PutMapping("/Projects/{projectId}")
     Project upadateProject(@RequestBody Project newProject,@PathVariable String projectId){
         return projectRepository.findById(projectId)
