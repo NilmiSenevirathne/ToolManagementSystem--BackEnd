@@ -11,7 +11,6 @@ public class Project {
     @Id
     private String projectId;
     private String ProjectName;
-
     private String Description;
     private String SiteSupervisorID;
     private String SiteSupervisorName;
