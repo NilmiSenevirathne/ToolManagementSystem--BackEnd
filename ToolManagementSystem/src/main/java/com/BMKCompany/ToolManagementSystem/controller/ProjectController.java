@@ -1,13 +1,19 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
+import com.BMKCompany.ToolManagementSystem.model.Project;
+import com.BMKCompany.ToolManagementSystem.repository.ProjectRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @CrossOrigin(origins = "*")
 public class ProjectController {
+
     @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectRepo projectRepository;
 
     @PostMapping("/project")
     Project newProject(@RequestBody Project newProject) {
@@ -25,6 +31,7 @@ public class ProjectController {
         return projectRepository.findById(String.valueOf(projectId))
                 .orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
+
 
     @PutMapping("/Projects/{projectId}")
     Project upadateProject(@RequestBody Project newProject,@PathVariable String projectId){
