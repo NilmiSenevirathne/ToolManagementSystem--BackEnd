@@ -1,6 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
-
 import com.BMKCompany.ToolManagementSystem.model.User;
 import com.BMKCompany.ToolManagementSystem.repository.LoginRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/authentication")
 public class LoginController {
@@ -44,7 +41,7 @@ public class LoginController {
     @GetMapping("/viewAllUser")
     @ResponseBody
     public ResponseEntity<List<User>> listUser() {
-        Iterable<User> studentList = loginRepo.findAll();
+        Iterable<User> userList = loginRepo.findAll();
         return ResponseEntity.ok((List<User>) userList);
     }
 }
