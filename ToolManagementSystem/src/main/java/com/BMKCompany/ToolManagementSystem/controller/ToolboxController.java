@@ -20,19 +20,22 @@ public class ToolboxController {
     public ToolboxRepo toolboxRepo;
 
     @Autowired
-    public ToolboxController (ToolBoxService toolBoxService){
+    public ToolboxController(ToolBoxService toolBoxService) {
         this.toolBoxService = toolBoxService;
     }
 
     //retrieve toolbox data from database
     @GetMapping("/gettoolbox")
-    public List<ToolBox> getToolbox()
-    {
+    public List<ToolBox> getToolbox() {
         return toolboxRepo.findAll();
     }
 
     //create toolbox function
+    @PostMapping("/createtoolbox")
     public ResponseEntity<String> createToolBox(@RequestBody ToolBox toolBox){
-        return new ResponseEntity<>("Toolbox Successfully Created", HttpStatus.CREATED);
+        toolBoxService.save(toolBox);
+        return  new ResponseEntity<>("Toolbox Successfully Created", HttpStatus.CREATED);
     }
+
+
 }
