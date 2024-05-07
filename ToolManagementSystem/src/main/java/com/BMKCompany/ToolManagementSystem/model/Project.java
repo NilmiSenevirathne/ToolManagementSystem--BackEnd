@@ -16,6 +16,16 @@ public class Project {
     private String SiteSupervisorName;
     private String locationId;
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    private String date;
+
     public String getProjectId() {
         return projectId;
     }
@@ -60,10 +70,10 @@ public class Project {
         return locationId;
     }
 
+
     public void setLocationId(String locationId) {
         this.locationId = locationId;
     }
-
 
 
 
