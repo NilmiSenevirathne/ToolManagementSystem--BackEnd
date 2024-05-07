@@ -30,6 +30,14 @@ public class LocationController {
     }
 
 
+    @GetMapping("/locations/{locationId}")
+    Location getLocationById(@PathVariable String locationId){
+        return locationRepository.findById(String.valueOf(locationId))
+                .orElseThrow(()->new LocationNotFoundException(locationId));
+    }
+
+
+
     @PutMapping("/locations/{locationId}")
     Location UpdateLocation(@RequestBody Location newLocation,@PathVariable String locationId){
         return  locationRepository.findById(locationId)
@@ -39,4 +47,15 @@ public class LocationController {
                             return locationRepository.save(Location);
                         }).orElseThrow(()-> new LocationNotFoundException(locationId));
     }
+
+
+    @DeleteMapping("/location/{locationId}")
+    String DeleteLocation(@PathVariable String locationId){
+        if(!locationRepository.existsById(locationId)){
+            throw new LocationNotFoundException(locationId);
+        }
+        locationRepository.deleteById(locationId);
+        return "location with id"+locationId +"has been deleted successfully";
+    }
+
 }
