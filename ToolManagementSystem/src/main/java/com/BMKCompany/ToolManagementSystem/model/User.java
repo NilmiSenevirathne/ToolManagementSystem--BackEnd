@@ -8,7 +8,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long userid;
+    private String userid;
     private String username;
     private String password;
     private String firstname;
@@ -19,11 +19,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 

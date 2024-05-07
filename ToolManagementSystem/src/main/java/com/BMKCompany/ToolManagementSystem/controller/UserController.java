@@ -24,6 +24,31 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @GetMapping("/{userid}")
+    public ResponseEntity<User> getUserById(@PathVariable String userid) {
+        User user = UserService.getUserById(userid);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User newUser = UserService.createUser(user);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @PutMapping("/{userid}")
+    public ResponseEntity<User> updateUser(@PathVariable String userid, @RequestBody User updatedUser) {
+        User user = UserService.updateUser(userid, updatedUser);
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/{userid}")
+    public ResponseEntity<String> deleteUser(@PathVariable String userid) {
+        userService.deleteUser(userid);
+        return ResponseEntity.ok("User with ID " + userid + " has been deleted.");
+    }
+}
+
 
 }
 
