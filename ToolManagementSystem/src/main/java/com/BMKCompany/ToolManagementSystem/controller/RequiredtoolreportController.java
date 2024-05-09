@@ -56,14 +56,14 @@ public class RequiredtoolreportController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save report details.");
         }
     }
-
+    
     //get and view  report details to see the stocksupervisor
     @GetMapping("/getreports")
     public List<Requiredtoolreports> getReports(){
         return requiredtoolreportsRepository.findAll();
     }
-
-
+    
+    
 }
 
 
