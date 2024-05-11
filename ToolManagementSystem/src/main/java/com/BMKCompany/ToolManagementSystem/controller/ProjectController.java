@@ -57,5 +57,4 @@ public class ProjectController {
         return "Project with id " +projectId +" has been deleted successfully";
     }
 
-
 }
