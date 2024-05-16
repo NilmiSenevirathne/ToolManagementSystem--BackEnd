@@ -3,11 +3,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name="project")
 public class Project {
-
-
     @Id
     private String projectId;
     private String ProjectName;
