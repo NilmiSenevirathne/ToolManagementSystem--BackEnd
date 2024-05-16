@@ -47,6 +47,7 @@ public class ProjectController {
                     return projectRepository.save(project);
                 }).orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
+
     @DeleteMapping("/Projects/{projectId}")
     String DeleteProject(@PathVariable String projectId){
         if(!projectRepository.existsById(projectId)){
@@ -55,6 +56,5 @@ public class ProjectController {
         projectRepository.deleteById(projectId);
         return "Project with id " +projectId +" has been deleted successfully";
     }
-
 
 }
