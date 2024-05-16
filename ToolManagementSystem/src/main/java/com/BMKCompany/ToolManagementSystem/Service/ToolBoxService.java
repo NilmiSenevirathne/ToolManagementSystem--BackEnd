@@ -19,7 +19,11 @@ public class ToolBoxService {
         return  toolboxRepo.save(toolBox);
     }
 
-    //Implement methods in the service class to save tools, allocate tools, and update the quantity values accordingly.
+    public void save(ToolBox toolBox) {
+    }
+
+
+
 
 }
 
