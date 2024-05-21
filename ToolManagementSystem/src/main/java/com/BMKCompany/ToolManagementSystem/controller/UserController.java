@@ -31,7 +31,7 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
     }
 
-    //getuserdetails to edit profile
+
     // Endpoint to update user profile
     @PutMapping("/updateUserProfile/{userid}")
     public User updateUserProfile(@PathVariable Long userid, @RequestBody User updatedUser) {
