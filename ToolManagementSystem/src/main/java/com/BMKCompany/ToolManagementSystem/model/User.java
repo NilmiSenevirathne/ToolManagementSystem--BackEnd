@@ -19,11 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue
-<<<<<<< Updated upstream
-    private String userid;
-=======
     private Integer userid;
->>>>>>> Stashed changes
     private String username;
     private String password;
     private String firstname;
@@ -35,14 +31,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-<<<<<<< Updated upstream
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-=======
     public static String encrypt(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -62,7 +50,6 @@ public class User {
     public static boolean verify(String input, String originalHash) {
         String inputHash = encrypt(input);
         return inputHash.equals(originalHash);
->>>>>>> Stashed changes
     }
 
 }

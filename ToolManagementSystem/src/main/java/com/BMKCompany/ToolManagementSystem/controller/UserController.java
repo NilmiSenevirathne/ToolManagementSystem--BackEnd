@@ -26,18 +26,6 @@ public class UserController {
         }
     }
 
-<<<<<<< Updated upstream
-    @GetMapping("/{userid}")
-    public ResponseEntity<User> getUserById(@PathVariable String userid) {
-        User user = UserService.getUserById(userid);
-        return ResponseEntity.ok(user);
-    }
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = UserService.createUser(user);
-        return ResponseEntity.ok(newUser);
-=======
     // Endpoint to fetch all user details
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> GetAllUsers() {
@@ -79,21 +67,7 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something Went Wrong");
         }
->>>>>>> Stashed changes
     }
-
-    @PutMapping("/{userid}")
-    public ResponseEntity<User> updateUser(@PathVariable String userid, @RequestBody User updatedUser) {
-        User user = UserService.updateUser(userid, updatedUser);
-        return ResponseEntity.ok(user);
-    }
-
-    @DeleteMapping("/{userid}")
-    public ResponseEntity<String> deleteUser(@PathVariable String userid) {
-        userService.deleteUser(userid);
-        return ResponseEntity.ok("User with ID " + userid + " has been deleted.");
-    }
-}
 
 
 }
