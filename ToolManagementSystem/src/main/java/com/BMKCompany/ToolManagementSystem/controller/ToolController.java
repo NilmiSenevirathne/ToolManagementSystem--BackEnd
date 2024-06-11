@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@Getter
-@Setter
-
+@RequestMapping("/tool")
 public class ToolController {
 
     @Autowired

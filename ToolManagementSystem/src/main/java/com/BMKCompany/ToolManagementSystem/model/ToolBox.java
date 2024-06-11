@@ -1,9 +1,12 @@
 package com.BMKCompany.ToolManagementSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ToolBox")
@@ -14,6 +17,8 @@ public class ToolBox {
     private String project_id;
     private String site_supervisor_id;
     private String Location_id;
+    @ElementCollection
+    private List <String> selectedTools;
 
     public String getToolbox_id() {
         return toolbox_id;
@@ -45,5 +50,12 @@ public class ToolBox {
 
     public void setLocation_id(String location_id) {
         Location_id = location_id;
+    }
+
+    public List<String> getSelectedTools() {
+        return selectedTools;
+    }
+    public void setSelectedTools(List<String> selectedTools) {
+        this.selectedTools = selectedTools;
     }
 }
