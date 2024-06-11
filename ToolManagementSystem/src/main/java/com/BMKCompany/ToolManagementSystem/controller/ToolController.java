@@ -5,10 +5,8 @@ import lombok.Setter;
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
+import java.util.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,6 +105,21 @@ public class ToolController {
             availableQuantity += tool.getQuantity();
         }
         return ResponseEntity.ok(availableQuantity);
+    }
+//get tool data to tool inventory chart
+    @GetMapping("/toolInventory")
+    public ResponseEntity<List<Map<String, Object>>> getToolInventory() {
+        List<Map<String, Object>> toolInventory = new ArrayList<>();
+        List<Tool> tools = toolRepo.findAll();
+
+        for (Tool tool : tools) {
+            Map<String, Object> toolData = new HashMap<>();
+            toolData.put("toolName", tool.getToolName());
+            toolData.put("quantity", tool.getQuantity());
+            toolInventory.add(toolData);
+        }
+
+        return ResponseEntity.ok(toolInventory);
     }
 
 

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -18,35 +17,50 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping ("/api/reports")
+@RequestMapping("/api/reports")
 public class RequiredtoolreportController {
+
+
     @Autowired
     ToolRepo toolRepo;
 
+
+    @Autowired
     RequiredtoolreportsRepository requiredtoolreportsRepository;
+
+
+    @GetMapping("/getReqTool")
+    public List<Requiredtoolreports> getRequeredtoolreports() {
+        return requiredtoolreportsRepository.findAll();
+    }
+
     @Autowired
     public RequiredtoolreportController(RequiredtoolreportsRepository requiredtoolreportsRepository) {
         this.requiredtoolreportsRepository = requiredtoolreportsRepository;
     }
+
+
     @PostMapping
     public ResponseEntity<String> addReportDetails(
-
             @RequestParam("projectName") String projectName,
             @RequestParam("reportPdf") MultipartFile reportPdf) {
+
+        // Check if the project name or report PDF is empty
         if (projectName.isEmpty() || reportPdf.isEmpty()) {
             return ResponseEntity.badRequest().body("Project name and report PDF are required.");
         }
 
         try {
-            // Save the report to the database
+            // Save report to the database
             Requiredtoolreports report = new Requiredtoolreports();
 
             report.setProject_name(projectName);
             report.setReport_data(reportPdf.getBytes());
-            report.setCreated_at(LocalDateTime.now()); // Set current date and time
+            report.setCreated_at(LocalDateTime.now());
 
-            Requiredtoolreports savedReport=requiredtoolreportsRepository.save(report);
+            Requiredtoolreports savedReport = requiredtoolreportsRepository.save(report);
 
+            // Prepare response
             Map<String, Object> response = new HashMap<>();
             response.put("reportId", savedReport.getReport_id());
             response.put("message", "Report details added successfully!");
@@ -65,5 +79,3 @@ public class RequiredtoolreportController {
     
     
 }
-
-

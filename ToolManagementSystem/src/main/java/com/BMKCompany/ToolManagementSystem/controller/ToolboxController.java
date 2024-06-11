@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("toolbox")
@@ -31,7 +30,6 @@ public class ToolboxController {
     public ToolboxController(ToolBoxService toolBoxService) {
         this.toolBoxService = toolBoxService;
     }
-
     //retrieve toolbox data from database
     @GetMapping("/gettoolbox")
     public List<ToolBox> getToolbox() {
