@@ -22,7 +22,6 @@ public class ToolboxController {
     public ToolboxController (ToolBoxService toolBoxService){
         this.toolBoxService = toolBoxService;
     }
-
     //retrieve toolbox data from database
     @GetMapping("/gettoolbox")
     public List<ToolBox> getToolbox()
