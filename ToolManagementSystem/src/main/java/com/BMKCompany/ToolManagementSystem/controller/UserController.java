@@ -22,9 +22,11 @@ public class UserController {
             userService.CreateNewUser(user);
             return ResponseEntity.ok("Add User Successfully");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something Went Wrong");
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Something Went Wrong: " + e.getMessage());
         }
     }
+
 
     // Endpoint to fetch all user details
     @GetMapping("/getAllUsers")
@@ -38,7 +40,7 @@ public class UserController {
 
     // Endpoint to get user details by id
     @GetMapping("/getUser/{userid}")
-    public ResponseEntity<?> getUserDetails(@PathVariable Integer userid) {
+    public ResponseEntity<?> getUserDetails(@PathVariable Long userid) {
         try {
             return ResponseEntity.ok(userService.getUserById(userid));
         } catch (Exception e) {
@@ -60,7 +62,7 @@ public class UserController {
 
     // Endpoint to delete user profile
     @DeleteMapping("/deleteUser/{userid}")
-    public ResponseEntity<?> deleteUserProfile(@PathVariable Integer userid) {
+    public ResponseEntity<?> deleteUserProfile(@PathVariable Long userid) {
         try {
             userService.deleteUser(userid);
             return ResponseEntity.ok("Delete Successfully");
