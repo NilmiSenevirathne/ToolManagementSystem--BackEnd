@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -38,32 +35,25 @@ public class ToolboxController {
         return toolboxRepo.findAll();
     }
 
-
-    //create toolbox function
-    @PostMapping("/createToolbox")
-    public ResponseEntity<String> createToolbox(@RequestParam("toolbox_id")String toolbox_id, @RequestParam("project_id") String project_id, @RequestParam("site_supervisor_id") String site_supervisor_id, @RequestParam("Location_id")  String Location_id, @RequestParam("selectedTools") String selectedTools){
-
-        //check the fields are empty
-        if(toolbox_id.isEmpty() || project_id.isEmpty() || site_supervisor_id.isEmpty() || Location_id.isEmpty() || selectedTools.isEmpty()){
-            return ResponseEntity.badRequest().body("All fields fill required ");
+    // Retrieve toolbox data by ID from the database
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getToolBoxById(@PathVariable Long id) {
+        Optional<ToolBox> toolBox = toolBoxService.getToolBoxById(id);
+        if (toolBox.isPresent()) {
+            return ResponseEntity.ok(toolBox.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Toolbox not found");
         }
-
-        //save details in database
-        ToolBox toolBox = new ToolBox();
-        toolBox.setToolbox_id(toolbox_id);
-        toolBox.setProject_id(project_id);
-        toolBox.setSite_supervisor_id(site_supervisor_id);
-        toolBox.setLocation_id(Location_id);
-        toolBox.setSelectedTools(Collections.singletonList(selectedTools));
-
-        ToolBox savedtoolbox = toolboxRepo.save(toolBox);
-
-        //prepare response
-        Map<String, Object> response  = new HashMap<>();
-        response.put("toolbox_id", savedtoolbox.getToolbox_id());
-        System.out.println("Toolbox Created Successfully!");
-
-        return ResponseEntity.ok().body(response.toString());
     }
+
+    // Create toolbox
+    @PostMapping("/create")
+    public ResponseEntity<ToolBox> createToolbox(@RequestBody ToolBox toolBox) {
+        ToolBox createdToolBox = toolBoxService.createToolBox(toolBox);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdToolBox);
+    }
+
+
+
 
 }

@@ -99,15 +99,15 @@ public class ToolController {
 
 
     //get total quantity of the tools from the database and calculate total quantity of available tools
-    @GetMapping("/availableTools")
-    public ResponseEntity<Integer> calculateAvailableQuantity(){
-        List <Tool> allTools = toolRepo.findAll();
-        int availableQuantity = 0;
-        for(Tool tool: allTools){
-            availableQuantity += tool.getQuantity();
-        }
-        return ResponseEntity.ok(availableQuantity);
-    }
+//    @GetMapping("/availableTools")
+//    public ResponseEntity<Integer> calculateAvailableQuantity(){
+//        List <Tool> allTools = toolRepo.findAll();
+//        int availableQuantity = 0;
+//        for(Tool tool: allTools){
+//            availableQuantity += tool.getQuantity();
+//        }
+//        return ResponseEntity.ok(availableQuantity);
+//    }
 
 
 }
