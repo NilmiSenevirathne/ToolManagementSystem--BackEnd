@@ -9,6 +9,8 @@ import com.BMKCompany.ToolManagementSystem.repository.ToolboxRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ToolBoxService {
 
@@ -22,8 +24,12 @@ public class ToolBoxService {
     public void save(ToolBox toolBox) {
     }
 
+    public Optional<ToolBox> getToolBoxById(Long id) {
+        return toolboxRepo.findById(String.valueOf(id));
+    }
 
-
-
+    public ToolBox createToolBox(ToolBox toolBox) {
+        return toolboxRepo.save(toolBox);
+    }
 }
 
