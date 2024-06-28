@@ -46,11 +46,16 @@ public class ToolboxController {
         }
     }
 
-    // Create toolbox
+    // Create new  toolbox
     @PostMapping("/create")
-    public ResponseEntity<ToolBox> createToolbox(@RequestBody ToolBox toolBox) {
-        ToolBox createdToolBox = toolBoxService.createToolBox(toolBox);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdToolBox);
+    public ResponseEntity<ToolBox> newToolbox (@RequestBody ToolBox newToolbox){
+        try{
+            ToolBox savedToolbox = toolboxRepo.save(newToolbox);
+            System.out.println(" New Toolbox Successfully Created!");
+            return ResponseEntity.ok(savedToolbox);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
