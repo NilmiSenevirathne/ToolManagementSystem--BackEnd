@@ -12,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @CrossOrigin("*")
 public class LocationController {
 
