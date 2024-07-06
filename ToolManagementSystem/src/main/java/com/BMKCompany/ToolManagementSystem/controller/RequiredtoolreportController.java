@@ -13,14 +13,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reports")
 public class RequiredtoolreportController {
-
-
-    @Autowired
-    ToolRepo toolRepo;
 
 
     @Autowired
@@ -66,6 +63,16 @@ public class RequiredtoolreportController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save report details.");
+        }
+    }
+
+    @DeleteMapping("/{reportId}")
+    public ResponseEntity<String> deleteReport(@PathVariable Long reportId) {
+        try {
+            requiredtoolreportsRepository.deleteById(reportId);
+            return ResponseEntity.ok().body("Report deleted successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete report.");
         }
     }
 }

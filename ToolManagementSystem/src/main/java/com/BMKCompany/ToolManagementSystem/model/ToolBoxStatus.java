@@ -2,36 +2,34 @@ package com.BMKCompany.ToolManagementSystem.model;
 
 import jakarta.persistence.*;
 
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="ToolBoxStatus")
 public class ToolBoxStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ToolBoxId;
+    @Column(name = "ReportId")
+    private Long ReportId;
+
+    private String ProjectName;
+    @Lob
+    @Column(name = "statuspdf", columnDefinition = "LONGBLOB")
+    private byte[] statusPDF;
 
     private LocalDateTime created_at;
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] StatusPDF;
+
+    // Getters and Setters
+
 
 
     public byte[] getStatusPDF() {
-        return StatusPDF;
+        return statusPDF;
     }
 
     public void setStatusPDF(byte[] statusPDF) {
-        StatusPDF = statusPDF;
-    }
-
-    public Long getToolBoxId() {
-        return ToolBoxId;
-    }
-
-    public void setToolBoxId(Long toolBoxId) {
-        ToolBoxId = toolBoxId;
+        this.statusPDF = statusPDF;
     }
 
     public LocalDateTime getCreated_at() {
@@ -40,5 +38,21 @@ public class ToolBoxStatus {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String projectName) {
+        ProjectName = projectName;
+    }
+
+    public Long getReportId() {
+        return ReportId;
+    }
+
+    public void setReportId(Long reportId) {
+        ReportId = reportId;
     }
 }
