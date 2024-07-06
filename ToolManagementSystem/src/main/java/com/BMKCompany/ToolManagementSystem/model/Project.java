@@ -3,11 +3,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name="project")
 public class Project {
-
-
     @Id
     private String projectId;
     private String ProjectName;
@@ -16,54 +15,40 @@ public class Project {
     private String SiteSupervisorName;
     private String locationId;
 
-    public String getProjectId() {
-        return projectId;
+    public String getDate() {
+        return date;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getProjectName() {
-        return ProjectName;
-    }
+    private String date;
 
-    public void setProjectName(String projectName) {
-        ProjectName = projectName;
-    }
+    public String getProjectId() { return projectId;}
 
-    public String getDescription() {
-        return Description;
-    }
+    public void setProjectId(String projectId) { this.projectId = projectId;}
 
-    public void setDescription(String description) {
-        Description = description;
-    }
+    public String getProjectName() { return ProjectName;}
 
-    public String getSiteSupervisorID() {
-        return SiteSupervisorID;
-    }
+    public void setProjectName(String projectName) { ProjectName = projectName; }
 
-    public void setSiteSupervisorID(String siteSupervisorID) {
-        SiteSupervisorID = siteSupervisorID;
-    }
+    public String getDescription() { return Description;}
 
-    public String getSiteSupervisorName() {
-        return SiteSupervisorName;
-    }
+    public void setDescription(String description) { Description = description;}
 
-    public void setSiteSupervisorName(String siteSupervisorName) {
-        SiteSupervisorName = siteSupervisorName;
-    }
+    public String getSiteSupervisorID() { return SiteSupervisorID; }
 
-    public String getLocationId() {
-        return locationId;
-    }
+    public void setSiteSupervisorID(String siteSupervisorID) { SiteSupervisorID = siteSupervisorID;}
 
-    public void setLocationId(String locationId) {
-        this.locationId = locationId;
-    }
+    public String getSiteSupervisorName() { return SiteSupervisorName;}
 
+    public void setSiteSupervisorName(String siteSupervisorName) { SiteSupervisorName = siteSupervisorName;}
+
+    public String getLocationId() { return locationId; }
+
+
+    public void setLocationId(String locationId) { this.locationId = locationId;}
 
 
 
