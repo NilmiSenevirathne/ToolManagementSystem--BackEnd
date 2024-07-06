@@ -24,7 +24,7 @@ public class ToolBoxService {
     public void save(ToolBox toolBox) {
     }
 
-    public Optional<ToolBox> getToolBoxById(Long id) {
+    public Optional<ToolBox> getToolBoxById(String id) {
         return toolboxRepo.findById(String.valueOf(id));
     }
 

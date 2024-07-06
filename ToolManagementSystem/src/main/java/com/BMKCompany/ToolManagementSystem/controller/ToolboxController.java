@@ -39,15 +39,13 @@ public class ToolboxController {
     }
 
     // Retrieve toolbox data by ID from the database
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getToolBoxById(@PathVariable Long id) {
-        Optional<ToolBox> toolBox = toolBoxService.getToolBoxById(id);
-        if (toolBox.isPresent()) {
-            return ResponseEntity.ok(toolBox.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Toolbox not found");
-        }
+    @GetMapping("/{toolbox_id}")
+    public ResponseEntity<ToolBox> getToolBoxById(@PathVariable("toolbox_id") String toolbox_id){
+        Optional<ToolBox> toolBox = toolboxRepo.findById(toolbox_id);
+        return toolBox.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
+
+
 
     // Create new  toolbox
     @PostMapping("/create")
