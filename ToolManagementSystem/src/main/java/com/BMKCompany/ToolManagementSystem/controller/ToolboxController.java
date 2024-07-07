@@ -1,6 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.model.ToolBox;
 import com.BMKCompany.ToolManagementSystem.repository.ToolboxRepo;
 import com.itextpdf.text.log.Logger;
@@ -51,25 +52,41 @@ public class ToolboxController {
 
 
     // Retrieve toolbox data by ID from the database
-    @GetMapping("/{toolbox_id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ToolBox> getToolBoxById(@PathVariable("toolbox_id") String toolbox_id){
         Optional<ToolBox> toolBox = toolboxRepo.findById(toolbox_id);
         return toolBox.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
-
-
-    // Create new  toolbox
+     //Create new  toolbox
     @PostMapping("/create")
-    public ResponseEntity<ToolBox> newToolbox (@RequestBody ToolBox newToolbox){
-        try{
+    public ResponseEntity<ToolBox> newToolbox(@RequestBody ToolBox newToolbox){
+        try {
             ToolBox savedToolbox = toolboxRepo.save(newToolbox);
-            System.out.println(" New Toolbox Successfully Created!");
-            return ResponseEntity.ok(savedToolbox);
-        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedToolbox);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    //delete toolbox details from the inventory
+    @DeleteMapping("/delete/{toolbox_id}")
+    public ResponseEntity<String> deleteTool(@PathVariable ("toolbox_id") String toolbox_id)
+    {
+        try{
+            Optional<ToolBox> toolboxOptional = toolboxRepo.findById(toolbox_id);
+            if(toolboxOptional.isPresent()){
+                toolboxRepo.deleteById(toolbox_id);
+                return ResponseEntity.ok("Toolbox deleted successfully");
+            }
+            else{
+                return ResponseEntity.notFound().build();
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
+        }
+    }
+
 
 
 }

@@ -31,10 +31,48 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] userimageData;
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public static String encrypt(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());
+
 
             StringBuilder hexString = new StringBuilder();
             for (byte b : messageDigest) {
@@ -50,6 +88,35 @@ public class User {
     public static boolean verify(String input, String originalHash) {
         String inputHash = encrypt(input);
         return inputHash.equals(originalHash);
+    }
+
+
+    public void setNic(String nic) {
+        this.nic = nic;
+    }
+
+    public int getContact() {
+        return contact;
+    }
+
+    public void setContact(int contact) {
+        this.contact = contact;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public byte[] getImageData() {
+        return userimageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.userimageData = userimageData;
     }
 
 }

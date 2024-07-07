@@ -16,10 +16,12 @@ public class ToolBox {
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
+    private String location_id;
     private String Location_id;
   
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     public List<Tool> tools = new ArrayList<>();
+
 
     @ElementCollection
     private List <String> selectedTools;
@@ -50,11 +52,12 @@ public class ToolBox {
     }
 
     public String getLocation_id() {
-        return Location_id;
+        return location_id;
     }
 
     public void setLocation_id(String location_id) {
-        Location_id = location_id;
+
+        this.location_id = location_id;
     }
 
 

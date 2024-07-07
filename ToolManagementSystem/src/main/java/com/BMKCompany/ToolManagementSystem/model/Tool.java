@@ -20,7 +20,6 @@ public class Tool {
     private int availableTool;
 
 
-
     public String getToolId() {
         return toolId;
     }

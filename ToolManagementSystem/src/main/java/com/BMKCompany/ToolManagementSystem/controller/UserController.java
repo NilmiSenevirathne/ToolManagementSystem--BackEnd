@@ -1,5 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
 import com.BMKCompany.ToolManagementSystem.Service.UserService;
 import com.BMKCompany.ToolManagementSystem.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +59,11 @@ public class UserController {
         }
     }
 
+    // Endpoint to fetch user details for toolbox creation
+    @GetMapping("/getUsertoolbox")
+    public List<User> getUser() {
+        return userRepository.findAll();
+
     // Endpoint to delete user profile
     @DeleteMapping("/deleteUser/{userid}")
     public ResponseEntity<?> deleteUserProfile(@PathVariable Long userid) {
@@ -69,6 +73,7 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something Went Wrong");
         }
+
     }
 
     // Endpoint to get user details for editing profile
@@ -90,6 +95,7 @@ public class UserController {
                     user.setLastname(updatedUser.getLastname());
                     user.setNic(updatedUser.getNic());
                     user.setContact(updatedUser.getContact());
+                    user.setImageData(updatedUser.getImageData());
                     return userRepository.save(user);
                 })
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
