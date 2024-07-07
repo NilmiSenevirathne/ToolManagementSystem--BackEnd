@@ -25,7 +25,8 @@ public class ToolboxController {
 
     private final ToolBoxService toolBoxService;
 
-//    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
+
     @Autowired
     public ToolboxRepo toolboxRepo;
 
@@ -38,6 +39,17 @@ public class ToolboxController {
     public List<ToolBox> getToolbox() {
         return toolboxRepo.findAll();
     }
+
+
+    //create toolbox function
+    @PostMapping("/createtoolbox")
+    public ResponseEntity<String> createToolBox(@RequestBody ToolBox toolBox){
+        logger.info("Received request to create toolbox: {}");
+        toolBoxService.save(toolBox);
+        return  new ResponseEntity<>("Toolbox Successfully Created", HttpStatus.CREATED);
+    }
+
+
 
     // Retrieve toolbox data by ID from the database
     @GetMapping("/{id}")
@@ -74,8 +86,6 @@ public class ToolboxController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
         }
     }
-
-
 
 
 
