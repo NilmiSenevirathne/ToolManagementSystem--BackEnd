@@ -17,9 +17,12 @@ public class ToolBox {
     private String project_id;
     private String site_supervisor_id;
     private String Location_id;
+  
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     public List<Tool> tools = new ArrayList<>();
 
+    @ElementCollection
+    private List <String> selectedTools;
 
 
     public String getToolbox_id() {
@@ -55,11 +58,19 @@ public class ToolBox {
     }
 
 
+
     public List<Tool> getTools() {
         return tools;
     }
 
     public void setTools(List<Tool> tools) {
         this.tools = tools;
+
+    public List<String> getSelectedTools() {
+        return selectedTools;
+    }
+    public void setSelectedTools(List<String> selectedTools) {
+        this.selectedTools = selectedTools;
+
     }
 }
