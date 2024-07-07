@@ -19,6 +19,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] userimageData;
+
     public Long getUserid() {
         return userid;
     }
@@ -81,5 +85,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public byte[] getImageData() {
+        return userimageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.userimageData = userimageData;
     }
 }
