@@ -25,7 +25,8 @@ public class ToolboxController {
 
 
 
-//    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
+
     @Autowired
     public ToolboxRepo toolboxRepo;
     @Autowired
@@ -38,6 +39,22 @@ public class ToolboxController {
         return toolboxRepo.findAll();
     }
 
+    //create toolbox function
+    @PostMapping("/createtoolbox")
+    public ResponseEntity<String> createToolBox(@RequestBody ToolBox toolBox){
+        logger.info("Received request to create toolbox: {}");
+        toolBoxService.save(toolBox);
+        return  new ResponseEntity<>("Toolbox Successfully Created", HttpStatus.CREATED);
+    }
+
+
+
+    // Retrieve toolbox data by ID from the database
+    @GetMapping("/{id}")
+    public ResponseEntity<ToolBox> getToolBoxById(@PathVariable("toolbox_id") String toolbox_id){
+        Optional<ToolBox> toolBox = toolboxRepo.findById(toolbox_id);
+        return toolBox.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+    }
 
 
      //Create new  toolbox
@@ -97,8 +114,6 @@ public class ToolboxController {
         return toolbox.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
-
 
 
 
