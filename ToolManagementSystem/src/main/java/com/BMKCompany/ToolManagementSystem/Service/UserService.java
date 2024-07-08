@@ -43,7 +43,7 @@ public class UserService {
         currentUser.setNic(user.getNic());
         currentUser.setContact(user.getContact());
         currentUser.setRole(user.getRole());
-        currentUser.setImageurl(user.getImageurl());
+//        currentUser.setImageurl(user.getImageurl());
 
         userRepository.save(currentUser);
     }
