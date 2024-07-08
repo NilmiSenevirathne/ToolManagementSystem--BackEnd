@@ -14,7 +14,7 @@ public class ToolBox {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
@@ -64,18 +64,5 @@ public class ToolBox {
 
 
 
-    public List<Tool> getTools() {
-        return tools;
-    }
-
-    public void setTools(List<Tool> tools) {
-        this.tools = tools;
-
-    public List<String> getSelectedTools() {
-        return selectedTools;
-    }
-    public void setSelectedTools(List<String> selectedTools) {
-        this.selectedTools = selectedTools;
-
-    }
+    
 }
