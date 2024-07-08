@@ -12,7 +12,9 @@ import java.util.Set;
 @Table(name = "ToolBox")
 public class ToolBox {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
