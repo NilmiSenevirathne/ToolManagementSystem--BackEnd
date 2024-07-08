@@ -23,23 +23,21 @@ import java.util.Map;
 @RequestMapping("toolbox")
 public class ToolboxController {
 
-    private final ToolBoxService toolBoxService;
+
 
     private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
 
     @Autowired
     public ToolboxRepo toolboxRepo;
-
     @Autowired
-    public ToolboxController(ToolBoxService toolBoxService) {
-        this.toolBoxService = toolBoxService;
-    }
+    private ToolBoxService toolBoxService;
+
+
     //retrieve toolbox data from database
     @GetMapping("/gettoolbox")
     public List<ToolBox> getToolbox() {
         return toolboxRepo.findAll();
     }
-
 
     //create toolbox function
     @PostMapping("/createtoolbox")
@@ -57,6 +55,7 @@ public class ToolboxController {
         Optional<ToolBox> toolBox = toolboxRepo.findById(toolbox_id);
         return toolBox.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
+
 
      //Create new  toolbox
     @PostMapping("/create")
@@ -85,6 +84,35 @@ public class ToolboxController {
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tool: "+e.getMessage());
         }
+    }
+
+    //update toolbox details
+    @PutMapping("/update/{toolbox_id}")
+    public ResponseEntity<ToolBox> updateToolbox(@RequestBody ToolBox newToolbox, @PathVariable("toolbox_id") String toolbox_id){
+
+        try {
+            Optional<ToolBox> existingToolboxOptional = toolboxRepo.findById(toolbox_id);
+            if (existingToolboxOptional.isPresent()) {
+                ToolBox existingToolbox = existingToolboxOptional.get();
+                existingToolbox.setProject_id(newToolbox.getProject_id());
+                existingToolbox.setSite_supervisor_id(newToolbox.getSite_supervisor_id());
+                existingToolbox.setLocation_id(newToolbox.getLocation_id());
+                ToolBox updatedToolbox = toolboxRepo.save(existingToolbox);
+                return ResponseEntity.ok(updatedToolbox);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // Retrieve toolbox by ID
+    @GetMapping("/{toolbox_id}")
+    public ResponseEntity<ToolBox> getToolboxById(@PathVariable("toolbox_id") String toolbox_id) {
+        Optional<ToolBox> toolbox = toolboxRepo.findById(toolbox_id);
+        return toolbox.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
 

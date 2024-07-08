@@ -26,7 +26,7 @@ public class User {
     private String lastname;
     private String nic;
     private Long contact;
-    private String imageurl;
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -95,13 +95,13 @@ public class User {
         this.nic = nic;
     }
 
-    public int getContact() {
-        return contact;
-    }
-
-    public void setContact(int contact) {
-        this.contact = contact;
-    }
+//    public int getContact() {
+//        return contact;
+//    }
+//
+//    public void setContact(int contact) {
+//        this.contact = contact;
+//    }
 
     public Role getRole() {
         return role;

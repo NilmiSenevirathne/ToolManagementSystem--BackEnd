@@ -1,6 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 import com.BMKCompany.ToolManagementSystem.Service.UserService;
 import com.BMKCompany.ToolManagementSystem.model.User;
+import com.BMKCompany.ToolManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     // Endpoint to create user profile
     @PostMapping("/createNewUser")
@@ -38,14 +41,14 @@ public class UserController {
     }
 
     // Endpoint to get user details by id
-    @GetMapping("/getUser/{userid}")
-    public ResponseEntity<?> getUserDetails(@PathVariable Long userid) {
-        try {
-            return ResponseEntity.ok(userService.getUserById(userid));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something Went Wrong");
-        }
-    }
+//    @GetMapping("/getUser/{userid}")
+//    public ResponseEntity<?> getUserDetails(@PathVariable Long userid) {
+//        try {
+//            return ResponseEntity.ok(userService.getUserById(userid));
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Something Went Wrong");
+//        }
+//    }
 
 
     // Endpoint to update user profile
@@ -60,21 +63,21 @@ public class UserController {
     }
 
     // Endpoint to fetch user details for toolbox creation
-    @GetMapping("/getUsertoolbox")
-    public List<User> getUser() {
-        return userRepository.findAll();
-
-    // Endpoint to delete user profile
-    @DeleteMapping("/deleteUser/{userid}")
-    public ResponseEntity<?> deleteUserProfile(@PathVariable Long userid) {
-        try {
-            userService.deleteUser(userid);
-            return ResponseEntity.ok("Delete Successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Something Went Wrong");
-        }
-
-    }
+//    @GetMapping("/getUsertoolbox")
+//    public List<User> getUser() {
+//        return userRepository.findAll();
+//
+//    // Endpoint to delete user profile
+//    @DeleteMapping("/deleteUser/{userid}")
+//    public ResponseEntity<?> deleteUserProfile(@PathVariable Long userid) {
+//        try {
+//            userService.deleteUser(userid);
+//            return ResponseEntity.ok("Delete Successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Something Went Wrong");
+//        }
+//
+//    }
 
     // Endpoint to get user details for editing profile
     @GetMapping("/getUserDetails/{userid}")
