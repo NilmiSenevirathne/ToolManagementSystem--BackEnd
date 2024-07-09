@@ -1,4 +1,5 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,8 @@ public class ToolController {
 
     @Autowired
     private ToolRepo toolRepo;
+    @Autowired
+    private ToolBoxService toolBoxService;
 
 
     //retrieve tools data from database
@@ -59,6 +62,7 @@ public class ToolController {
         }
 
     }
+
 
     // Inside updateTool method
     @PutMapping("/update/{toolId}")
