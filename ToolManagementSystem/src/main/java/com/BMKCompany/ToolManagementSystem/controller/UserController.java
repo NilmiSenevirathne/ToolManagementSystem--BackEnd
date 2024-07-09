@@ -24,7 +24,29 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    // Endpoint to get user details for editing profile
+    @GetMapping("/getUserDetails/{userid}")
+    public User getUserDetails(@PathVariable Long userid) {
+        return userRepository.findById(userid)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
+    }
+
+
+    // Endpoint to update user profile
+    @PutMapping("/updateUserProfile/{userid}")
+    public User updateUserProfile(@PathVariable Long userid, @RequestBody User updatedUser) {
+        return userRepository.findById(userid)
+                .map(user -> {
+                    user.setUsername(updatedUser.getUsername());
+                    user.setPassword(updatedUser.getPassword());
+                    user.setFirstname(updatedUser.getFirstname());
+                    user.setLastname(updatedUser.getLastname());
+                    user.setNic(updatedUser.getNic());
+                    user.setContact(updatedUser.getContact());
+                    return userRepository.save(user);
+                })
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
+    }
+
 
 }
-
-

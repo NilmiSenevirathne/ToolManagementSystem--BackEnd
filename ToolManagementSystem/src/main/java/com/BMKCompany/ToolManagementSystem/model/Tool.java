@@ -1,6 +1,11 @@
 package com.BMKCompany.ToolManagementSystem.model;
 
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -18,6 +23,11 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tool")
+    private Set<LocationTrack> locationTracks;
+
 
 
 

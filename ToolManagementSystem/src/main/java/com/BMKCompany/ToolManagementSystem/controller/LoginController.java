@@ -1,6 +1,9 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+
 import com.BMKCompany.ToolManagementSystem.model.User;
 import com.BMKCompany.ToolManagementSystem.repository.LoginRepo;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +18,8 @@ import java.util.Map;
 @RequestMapping("/authentication")
 public class LoginController {
 
-
     @Autowired
     private LoginRepo loginRepo;
-    private Object userList;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
@@ -27,15 +28,20 @@ public class LoginController {
 
         User user = loginRepo.findByUsernameAndPassword(username, password);
 
-
         if (user != null) {
             return ResponseEntity.ok(user.getRole().toString());
-
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-
         }
+    }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("Logout successful");
     }
 
     @GetMapping("/viewAllUser")

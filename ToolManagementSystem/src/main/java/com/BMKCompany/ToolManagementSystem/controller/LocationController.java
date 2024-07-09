@@ -1,6 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 import com.BMKCompany.ToolManagementSystem.Exception.LocationNotFoundException;
 import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
+import com.BMKCompany.ToolManagementSystem.Service.ToolLocationService;
 import com.BMKCompany.ToolManagementSystem.model.Location;
 
 import com.BMKCompany.ToolManagementSystem.model.Project;
@@ -12,11 +13,15 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
+
 public class LocationController {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private ToolLocationService toolLocationService;
 
     @PostMapping("/location")
     Location newlocation(@RequestBody Location newlocation) {
@@ -56,6 +61,11 @@ public class LocationController {
         }
         locationRepository.deleteById(locationId);
         return "location with id"+locationId +"has been deleted successfully";
+    }
+
+    @GetMapping("/{toolId}/locations")
+    public List<Location> getToolLocations(@PathVariable String toolId) {
+        return toolLocationService.getLocationsByToolId(toolId);
     }
 
 }

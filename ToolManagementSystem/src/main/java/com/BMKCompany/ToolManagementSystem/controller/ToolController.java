@@ -1,4 +1,11 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+
+import com.BMKCompany.ToolManagementSystem.model.Location;
+import com.BMKCompany.ToolManagementSystem.model.LocationTrack;
+
+import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+
+import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +31,19 @@ public class ToolController {
 
     @Autowired
     private ToolRepo toolRepo;
+    @Autowired
+    private ToolBoxService toolBoxService;
+
+    @Autowired
+    private LocationTrackRepository locationTrackRepository;
+
 
 
     //retrieve tools data from database
     @GetMapping("/gettools")
     public List<Tool> getTools() {
         return toolRepo.findAll();
+
     }
 
     //get tools details from toolid
@@ -57,6 +74,7 @@ public class ToolController {
         }
 
     }
+
 
     // Inside updateTool method
     @PutMapping("/update/{toolId}")
@@ -98,7 +116,6 @@ public class ToolController {
     }
 
 
-    //get total quantity of the tools from the database and calculate total quantity of available tools
     @GetMapping("/availableTools")
     public ResponseEntity<Integer> calculateAvailableQuantity(){
         List <Tool> allTools = toolRepo.findAll();
@@ -108,7 +125,46 @@ public class ToolController {
         }
         return ResponseEntity.ok(availableQuantity);
     }
+//get tool data to tool inventory chart
+    @GetMapping("/toolInventory")
+    public ResponseEntity<List<Map<String, Object>>> getToolInventory() {
+        List<Map<String, Object>> toolInventory = new ArrayList<>();
+        List<Tool> tools = toolRepo.findAll();
 
+        for (Tool tool : tools) {
+            Map<String, Object> toolData = new HashMap<>();
+            toolData.put("toolId", tool.getToolId());
+            toolData.put("toolName", tool.getToolName());
+            toolData.put("quantity", tool.getQuantity());
+            toolInventory.add(toolData);
+        }
+
+        return ResponseEntity.ok(toolInventory);
+    }
+
+//    @GetMapping("/{toolId}/locations")
+//    public List<Location> getToolLocations(@PathVariable String toolId) {
+//        List<LocationTrack> locationTracks = locationTrackRepository.findByToolToolId(toolId);
+//        return locationTracks.stream()
+//                .map(LocationTrack::getLocation)
+//                .distinct()
+//                .collect(Collectors.toList());
+//    }
+
+    @GetMapping("/{toolId}/locations")
+    public ResponseEntity<List<Location>> getToolLocations(@PathVariable String toolId) {
+        try {
+            List<LocationTrack> locationTracks = locationTrackRepository.findByToolToolId(toolId);
+            List<Location> locations = locationTracks.stream()
+                    .map(LocationTrack::getLocation)
+                    .distinct()
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(locations);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
+        }
+    }
 
 }
 
