@@ -11,7 +11,6 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
-
     public String getToolId() {
         return toolId;
     }

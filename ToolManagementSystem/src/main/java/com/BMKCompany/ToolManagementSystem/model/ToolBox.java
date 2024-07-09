@@ -1,14 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.model;
-
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Table(name = "ToolBox")
 public class ToolBox {
@@ -19,10 +12,8 @@ public class ToolBox {
     private String project_id;
     private String site_supervisor_id;
     private String location_id;
-
     @Column(name = "createdDate")  // Mapping to database column
     private LocalDateTime createdDate;
-
 
     public String getToolbox_id() {
         return toolbox_id;
@@ -64,7 +55,5 @@ public class ToolBox {
 
         this.location_id = location_id;
     }
-
-
-
+    
 }
