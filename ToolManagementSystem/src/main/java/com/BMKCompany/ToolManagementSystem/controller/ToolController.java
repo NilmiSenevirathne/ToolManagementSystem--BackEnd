@@ -142,14 +142,7 @@ public class ToolController {
         return ResponseEntity.ok(toolInventory);
     }
 
-//    @GetMapping("/{toolId}/locations")
-//    public List<Location> getToolLocations(@PathVariable String toolId) {
-//        List<LocationTrack> locationTracks = locationTrackRepository.findByToolToolId(toolId);
-//        return locationTracks.stream()
-//                .map(LocationTrack::getLocation)
-//                .distinct()
-//                .collect(Collectors.toList());
-//    }
+
 
     @GetMapping("/{toolId}/locations")
     public ResponseEntity<List<Location>> getToolLocations(@PathVariable String toolId) {
