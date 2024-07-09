@@ -18,16 +18,15 @@ public class Project {
 
     private String locationName;
 
-
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    private boolean status;
+    private String status;
 
     private String StartDate;
     private String EndDate;
