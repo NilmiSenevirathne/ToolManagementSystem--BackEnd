@@ -1,7 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.model;
-
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -16,7 +13,6 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
-
     @ManyToOne
     @JoinColumn(name = "toolbox_id")
     private ToolBox toolBox;

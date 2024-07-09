@@ -13,19 +13,15 @@ import java.util.Set;
 @Table(name = "ToolBox")
 public class ToolBox {
 
-
     @Id
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
     private String location_id;
-
     @OneToMany(mappedBy = "toolBox", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tool> tools = new ArrayList<>();
-
     @Column(name = "createdDate")  // Mapping to database column
     private LocalDateTime createdDate;
-
     @ElementCollection
     @CollectionTable(name = "toolbox_selected_tools", joinColumns = @JoinColumn(name = "toolbox_id"))
     @Column(name = "tool_id")
@@ -66,12 +62,10 @@ public class ToolBox {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
-
     public void setLocation_id(String location_id) {
 
         this.location_id = location_id;
     }
-
 
     public List<Tool> getTools() {
         return tools;
