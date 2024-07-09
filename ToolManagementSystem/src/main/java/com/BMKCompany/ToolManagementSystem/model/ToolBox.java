@@ -18,6 +18,7 @@ public class ToolBox {
     private String site_supervisor_id;
     private String Location_id;
     @ElementCollection
+    @Column
     private List <String> selectedTools;
 
     public String getToolbox_id() {
