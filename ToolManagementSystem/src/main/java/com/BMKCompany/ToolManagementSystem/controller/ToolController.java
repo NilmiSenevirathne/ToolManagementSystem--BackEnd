@@ -1,4 +1,5 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,9 @@ public class ToolController {
 
     @Autowired
     private ToolRepo toolRepo;
+
+    @Autowired
+    LocationTrackRepository locationTrackRepository;
 
 
     //retrieve tools data from database
@@ -117,6 +121,7 @@ public class ToolController {
 
         for (Tool tool : tools) {
             Map<String, Object> toolData = new HashMap<>();
+            toolData.put("toolId", tool.getToolId());
             toolData.put("toolName", tool.getToolName());
             toolData.put("quantity", tool.getQuantity());
             toolInventory.add(toolData);

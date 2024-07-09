@@ -2,6 +2,9 @@ package com.BMKCompany.ToolManagementSystem.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.Set;
 
 @Entity
 public class Location {
@@ -9,6 +12,11 @@ public class Location {
     @Id
     private String locationId;
     private String locationName;
+    @OneToMany(mappedBy = "location")
+    private Set<LocationTrack> locationTracks;
+
+    private double latitude;
+    private double longitude;
 
     public String getLocationId() {
         return locationId;
@@ -24,5 +32,29 @@ public class Location {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public Set<LocationTrack> getLocationTracks() {
+        return locationTracks;
+    }
+
+    public void setLocationTracks(Set<LocationTrack> locationTracks) {
+        this.locationTracks = locationTracks;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

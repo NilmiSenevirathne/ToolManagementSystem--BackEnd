@@ -21,6 +21,10 @@ public class Tool {
     private int availableTool;
 
 
+    @OneToMany(mappedBy = "tool")
+    private Set<LocationTrack> locationTracks;
+
+
     public String getToolId() {
         return toolId;
     }
@@ -70,6 +74,13 @@ public class Tool {
     }
 
 
+    public Set<LocationTrack> getLocationTracks() {
+        return locationTracks;
+    }
+
+    public void setLocationTracks(Set<LocationTrack> locationTracks) {
+        this.locationTracks = locationTracks;
+    }
 
 
 }
