@@ -14,13 +14,6 @@ public class ToolService {
     {
         return toolRepo.save(tool);
     }
-
-//    public List<Tool> getAllTools() {
-//        return toolRepo.findAll();
-//    }
-
-
-
-
+    
 
 }
