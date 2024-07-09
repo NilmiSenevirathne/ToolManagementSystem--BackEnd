@@ -1,6 +1,10 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+
 import com.BMKCompany.ToolManagementSystem.model.Location;
 import com.BMKCompany.ToolManagementSystem.model.LocationTrack;
+
+import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+
 import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +31,8 @@ public class ToolController {
 
     @Autowired
     private ToolRepo toolRepo;
+    @Autowired
+    private ToolBoxService toolBoxService;
 
     @Autowired
     private LocationTrackRepository locationTrackRepository;
@@ -68,6 +74,7 @@ public class ToolController {
         }
 
     }
+
 
     // Inside updateTool method
     @PutMapping("/update/{toolId}")

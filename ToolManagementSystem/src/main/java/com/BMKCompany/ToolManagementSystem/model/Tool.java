@@ -1,7 +1,11 @@
 package com.BMKCompany.ToolManagementSystem.model;
 
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -13,7 +17,6 @@ import java.util.Set;
 public class Tool {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String toolId;
     private String toolName;
     private String description;
@@ -75,7 +78,6 @@ public class Tool {
     public void setAvailableTool(int availableTool) {
         this.availableTool = availableTool;
     }
-
 
 
 
