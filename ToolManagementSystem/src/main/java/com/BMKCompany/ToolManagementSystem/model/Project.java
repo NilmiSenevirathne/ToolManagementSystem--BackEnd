@@ -3,10 +3,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name="project")
+
 public class Project {
+
     @Id
     private String projectId;
     private String ProjectName;
@@ -15,15 +16,39 @@ public class Project {
     private String SiteSupervisorName;
     private String locationId;
 
-    public String getDate() {
-        return date;
+    private String locationName;
+    private String status;
+
+    private String StartDate;
+    private String EndDate;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 
-    private String date;
+
+
+    public String getStartDate() {
+        return StartDate;
+    }
+
+    public void setStartDate(String startDate) {
+        StartDate = startDate;
+    }
+
+    public String getEndDate() {
+        return EndDate;
+    }
+
+    public void setEndDate(String endDate) {
+        EndDate = endDate;
+    }
+
+
+
 
     public String getProjectId() { return projectId;}
 
@@ -47,10 +72,7 @@ public class Project {
 
     public String getLocationId() { return locationId; }
 
-
     public void setLocationId(String locationId) { this.locationId = locationId;}
-
-
 
 
 
