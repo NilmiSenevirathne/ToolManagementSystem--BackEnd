@@ -1,5 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,8 @@ public class ToolController {
     @Autowired
     private ToolBoxService toolBoxService;
 
+    @Autowired
+    LocationTrackRepository locationTrackRepository;
 
     //retrieve tools data from database
     @GetMapping("/gettools")
