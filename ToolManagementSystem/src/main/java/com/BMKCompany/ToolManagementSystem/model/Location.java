@@ -1,5 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -12,6 +13,8 @@ public class Location {
     @Id
     private String locationId;
     private String locationName;
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "location")
     private Set<LocationTrack> locationTracks;
 
