@@ -1,4 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "Tool")
@@ -11,6 +13,11 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "tool")
+    private Set<LocationTrack> locationTracks;
+
     public String getToolId() {
         return toolId;
     }
@@ -58,5 +65,6 @@ public class Tool {
     public void setAvailableTool(int availableTool) {
         this.availableTool = availableTool;
     }
+
 
 }

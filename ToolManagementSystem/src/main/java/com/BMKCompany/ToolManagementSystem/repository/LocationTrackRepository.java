@@ -9,6 +9,6 @@ import java.util.List;
 public interface LocationTrackRepository extends JpaRepository<LocationTrack, Long> {
 
     List<LocationTrack> findByToolToolId(String tool);
-    Location getLocationById(Long locationId);
+
 
 }

@@ -1,5 +1,10 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+
+import com.BMKCompany.ToolManagementSystem.model.Location;
+import com.BMKCompany.ToolManagementSystem.model.LocationTrack;
+
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+
 import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 import org.springframework.http.HttpStatus;
@@ -29,12 +35,14 @@ public class ToolController {
     private ToolBoxService toolBoxService;
 
     @Autowired
-    LocationTrackRepository locationTrackRepository;
+    private LocationTrackRepository locationTrackRepository;
+
 
     //retrieve tools data from database
     @GetMapping("/gettools")
     public List<Tool> getTools() {
         return toolRepo.findAll();
+
     }
 
     //get tools details from toolid
@@ -109,6 +117,21 @@ public class ToolController {
 
 
 
+
+    @GetMapping("/{toolId}/locations")
+    public ResponseEntity<List<Location>> getToolLocations(@PathVariable String toolId) {
+        try {
+            List<LocationTrack> locationTracks = locationTrackRepository.findByToolToolId(toolId);
+            List<Location> locations = locationTracks.stream()
+                    .map(LocationTrack::getLocation)
+                    .distinct()
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(locations);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.emptyList());
+        }
+    }
 
 }
 

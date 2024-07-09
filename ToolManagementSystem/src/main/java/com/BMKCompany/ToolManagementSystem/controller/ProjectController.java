@@ -1,4 +1,5 @@
 package com.BMKCompany.ToolManagementSystem.controller;
+
 import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Project;
 import com.BMKCompany.ToolManagementSystem.repository.ProjectRepo;
@@ -6,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -16,45 +16,43 @@ public class ProjectController {
     private ProjectRepo projectRepository;
 
     @PostMapping("/project")
-    Project newProject(@RequestBody Project newProject) {
+    public Project newProject(@RequestBody Project newProject) {
         return projectRepository.save(newProject);
     }
 
     @GetMapping("/Projects")
-    List<Project> getAllProjects() {
+    public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 
     @GetMapping("/Projects/{projectId}")
-    Project getProjectById(@PathVariable String projectId) {
-
-        return projectRepository.findById(String.valueOf(projectId))
+    public Project getProjectById(@PathVariable String projectId) {
+        return projectRepository.findById(projectId)
                 .orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
 
-
     @PutMapping("/Projects/{projectId}")
-    Project upadateProject(@RequestBody Project newProject,@PathVariable String projectId){
+    public Project updateProject(@RequestBody Project newProject, @PathVariable String projectId) {
         return projectRepository.findById(projectId)
                 .map(project -> {
-
                     project.setProjectId(newProject.getProjectId());
                     project.setProjectName(newProject.getProjectName());
                     project.setDescription(newProject.getDescription());
                     project.setSiteSupervisorID(newProject.getSiteSupervisorID());
                     project.setSiteSupervisorName(newProject.getSiteSupervisorName());
                     project.setLocationId(newProject.getLocationId());
+                    project.setStartDate(newProject.getStartDate());
+                    project.setEndDate(newProject.getEndDate());
                     return projectRepository.save(project);
                 }).orElseThrow(() -> new ProjectNotFoundException(projectId));
     }
 
     @DeleteMapping("/Projects/{projectId}")
-    String DeleteProject(@PathVariable String projectId){
-        if(!projectRepository.existsById(projectId)){
+    public String deleteProject(@PathVariable String projectId) {
+        if (!projectRepository.existsById(projectId)) {
             throw new ProjectNotFoundException(projectId);
         }
         projectRepository.deleteById(projectId);
-        return "Project with id " +projectId +" has been deleted successfully";
+        return "Project with id " + projectId + " has been deleted successfully";
     }
-
 }
