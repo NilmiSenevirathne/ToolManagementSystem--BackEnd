@@ -1,13 +1,5 @@
 package com.BMKCompany.ToolManagementSystem.model;
-
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Table(name = "Tool")
 public class Tool {
@@ -19,7 +11,6 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
-
 
     public String getToolId() {
         return toolId;
@@ -69,8 +60,4 @@ public class Tool {
         this.availableTool = availableTool;
     }
 
-
-
 }
-
-
