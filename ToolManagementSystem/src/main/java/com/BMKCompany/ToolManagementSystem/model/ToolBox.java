@@ -1,7 +1,5 @@
 package com.BMKCompany.ToolManagementSystem.model;
-
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.model;
 import jakarta.persistence.*;
 import java.util.Set;
-
 @Entity
 @Table(name = "Tool")
 public class Tool {
