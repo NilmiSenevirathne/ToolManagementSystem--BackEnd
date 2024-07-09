@@ -1,37 +1,33 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
-import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.model.ToolBox;
 import com.BMKCompany.ToolManagementSystem.repository.ToolboxRepo;
-import com.itextpdf.text.log.Logger;
-import com.itextpdf.text.log.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+
+import java.time.LocalDateTime;
 import java.util.*;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("toolbox")
 public class ToolboxController {
 
+    private final ToolBoxService toolBoxService;
 
-
-    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
-
+    //    private static final Logger logger = LoggerFactory.getLogger(ToolboxController.class);
     @Autowired
     public ToolboxRepo toolboxRepo;
-    @Autowired
-    private ToolBoxService toolBoxService;
 
+    @Autowired
+    public ToolboxController(ToolBoxService toolBoxService) {
+        this.toolBoxService = toolBoxService;
+    }
 
     //retrieve toolbox data from database
     @GetMapping("/gettoolbox")
@@ -39,34 +35,34 @@ public class ToolboxController {
         return toolboxRepo.findAll();
     }
 
-    //create toolbox function
-    @PostMapping("/createtoolbox")
-    public ResponseEntity<String> createToolBox(@RequestBody ToolBox toolBox){
-        logger.info("Received request to create toolbox: {}");
-        toolBoxService.save(toolBox);
-        return  new ResponseEntity<>("Toolbox Successfully Created", HttpStatus.CREATED);
-    }
-
-
-
     // Retrieve toolbox data by ID from the database
-    @GetMapping("/{id}")
-    public ResponseEntity<ToolBox> getToolBoxById(@PathVariable("toolbox_id") String toolbox_id){
+    @GetMapping("/search/{toolbox_id}")
+    public ResponseEntity<ToolBox> getToolBoxById(@PathVariable("toolbox_id") String toolbox_id) {
+        System.out.println("Received toolbox_id: " + toolbox_id);  // Debug statement
         Optional<ToolBox> toolBox = toolboxRepo.findById(toolbox_id);
-        return toolBox.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
+        return toolBox.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-     //Create new  toolbox
+    //create New toolbox
     @PostMapping("/create")
-    public ResponseEntity<ToolBox> newToolbox(@RequestBody ToolBox newToolbox){
+    public ResponseEntity<ToolBox> newToolbox(@RequestBody ToolBox newToolbox) {
         try {
+            newToolbox.setCreatedDate(LocalDateTime.now()); // Set current date and time
             ToolBox savedToolbox = toolboxRepo.save(newToolbox);
+            System.out.println("Successfully created New Toolbox!");
             return ResponseEntity.status(HttpStatus.CREATED).body(savedToolbox);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    //get toolbox details from ID
+
+
+
+
+
 
     //delete toolbox details from the inventory
     @DeleteMapping("/delete/{toolbox_id}")
@@ -86,34 +82,26 @@ public class ToolboxController {
         }
     }
 
-    //update toolbox details
-    @PutMapping("/update/{toolbox_id}")
-    public ResponseEntity<ToolBox> updateToolbox(@RequestBody ToolBox newToolbox, @PathVariable("toolbox_id") String toolbox_id){
+    // Update toolbox details in the inventory
+//    @PutMapping("/update/{toolbox_id}") // Endpoint for updating toolbox by ID
+//    public ResponseEntity<ToolBox> updateToolbox(@PathVariable("toolbox_id") String toolbox_id,
+//                                                 @RequestBody ToolBox toolboxDetails) {
+//        Optional<ToolBox> toolboxOptional = toolboxRepo.findById(toolbox_id);
+//        if (toolboxOptional.isPresent()) {
+//            ToolBox existingToolbox = toolboxOptional.get();
+//            existingToolbox.setProject_id(toolboxDetails.getProject_id());
+//            existingToolbox.setSite_supervisor_id(toolboxDetails.getSite_supervisor_id());
+//            existingToolbox.setLocation_id(toolboxDetails.getLocation_id());
+//
+//            // Save updated toolbox details
+//            ToolBox updatedToolbox = toolboxRepo.save(existingToolbox);
+//            return ResponseEntity.ok(updatedToolbox);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
-        try {
-            Optional<ToolBox> existingToolboxOptional = toolboxRepo.findById(toolbox_id);
-            if (existingToolboxOptional.isPresent()) {
-                ToolBox existingToolbox = existingToolboxOptional.get();
-                existingToolbox.setProject_id(newToolbox.getProject_id());
-                existingToolbox.setSite_supervisor_id(newToolbox.getSite_supervisor_id());
-                existingToolbox.setLocation_id(newToolbox.getLocation_id());
-                ToolBox updatedToolbox = toolboxRepo.save(existingToolbox);
-                return ResponseEntity.ok(updatedToolbox);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
 
-    // Retrieve toolbox by ID
-    @GetMapping("/{toolbox_id}")
-    public ResponseEntity<ToolBox> getToolboxById(@PathVariable("toolbox_id") String toolbox_id) {
-        Optional<ToolBox> toolbox = toolboxRepo.findById(toolbox_id);
-        return toolbox.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-    }
 
 
 
