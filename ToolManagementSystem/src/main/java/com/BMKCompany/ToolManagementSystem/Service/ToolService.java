@@ -1,5 +1,4 @@
 package com.BMKCompany.ToolManagementSystem.Service;
-
 import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.repository.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,6 @@ public class ToolService {
     {
         return toolRepo.save(tool);
     }
-    
+
 
 }
