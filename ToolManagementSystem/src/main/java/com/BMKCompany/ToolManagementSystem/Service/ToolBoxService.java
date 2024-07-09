@@ -37,7 +37,6 @@ public class ToolBoxService {
         toolbox.setSite_supervisor_id(siteSupervisorId);
         toolbox.setLocation_id(locationId);
 
-
         toolboxRepo.save(toolbox);
     }
 }
