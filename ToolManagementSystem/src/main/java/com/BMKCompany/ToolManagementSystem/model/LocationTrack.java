@@ -1,5 +1,6 @@
 package com.BMKCompany.ToolManagementSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +11,12 @@ public class LocationTrack {
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long ToolTrackid;
 
+      @JsonBackReference
      @ManyToOne
      @JoinColumn(name="locationId" , nullable = false)
      private Location location;
 
+     @JsonBackReference
      @ManyToOne
      @JoinColumn(name="toolId" , nullable = false)
      private Tool tool;
