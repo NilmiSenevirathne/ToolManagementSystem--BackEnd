@@ -1,21 +1,14 @@
 package com.BMKCompany.ToolManagementSystem.model;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDateTime;
 @Entity
 @Table(name = "ToolBox")
 public class ToolBox {
-
-
     @Id
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
     private String location_id;
-    @Column(name = "createdDate")  // Mapping to database column
-    private LocalDateTime createdDate;
-
-    public String getToolbox_id() {
+       public String getToolbox_id() {
         return toolbox_id;
     }
 
@@ -43,13 +36,6 @@ public class ToolBox {
         return location_id;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public void setLocation_id(String location_id) {
 
