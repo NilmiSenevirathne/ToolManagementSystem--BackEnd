@@ -20,9 +20,16 @@ public class ToolBox {
     private String site_supervisor_id;
     private String location_id;
 
+    @OneToMany(mappedBy = "toolBox", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tool> tools = new ArrayList<>();
+
     @Column(name = "createdDate")  // Mapping to database column
     private LocalDateTime createdDate;
 
+    @ElementCollection
+    @CollectionTable(name = "toolbox_selected_tools", joinColumns = @JoinColumn(name = "toolbox_id"))
+    @Column(name = "tool_id")
+    private List<String> selectedTools = new ArrayList<>();
 
     public String getToolbox_id() {
         return toolbox_id;
@@ -66,5 +73,19 @@ public class ToolBox {
     }
 
 
+    public List<Tool> getTools() {
+        return tools;
+    }
 
+    public void setTools(List<Tool> tools) {
+        this.tools = tools;
+    }
+
+    public List<String> getSelectedTools() {
+        return selectedTools;
+    }
+
+    public void setSelectedTools(List<String> selectedTools) {
+        this.selectedTools = selectedTools;
+    }
 }

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public class ToolBoxStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ReportId")
     private Long ReportId;
 

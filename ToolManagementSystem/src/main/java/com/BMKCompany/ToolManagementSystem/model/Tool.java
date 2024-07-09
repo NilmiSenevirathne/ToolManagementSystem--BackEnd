@@ -20,7 +20,9 @@ public class Tool {
     private int allocatedTool;
     private int availableTool;
 
-
+    @ManyToOne
+    @JoinColumn(name = "toolbox_id")
+    private ToolBox toolBox;
     @OneToMany(mappedBy = "tool")
     private Set<LocationTrack> locationTracks;
 
