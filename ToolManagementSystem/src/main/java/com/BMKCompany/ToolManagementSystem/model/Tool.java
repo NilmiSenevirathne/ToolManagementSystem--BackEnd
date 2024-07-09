@@ -23,7 +23,6 @@ public class Tool {
     @OneToMany(mappedBy = "tool")
     private Set<LocationTrack> locationTracks;
 
-
     public String getToolId() {
         return toolId;
     }
@@ -71,7 +70,6 @@ public class Tool {
     public void setAvailableTool(int availableTool) {
         this.availableTool = availableTool;
     }
-
 
     public Set<LocationTrack> getLocationTracks() {
         return locationTracks;
