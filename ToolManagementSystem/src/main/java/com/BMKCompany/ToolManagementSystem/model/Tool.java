@@ -12,12 +12,15 @@ import java.util.Set;
 public class Tool {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String toolId;
     private String toolName;
     private String description;
     private int quantity;
     private int allocatedTool;
     private int availableTool;
+
+
 
 
 

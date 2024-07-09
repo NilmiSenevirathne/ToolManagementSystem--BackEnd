@@ -12,14 +12,19 @@ import java.util.Set;
 @Table(name = "ToolBox")
 public class ToolBox {
 
+
     @Id
+    @GeneratedValue
     private String toolbox_id;
     private String project_id;
     private String site_supervisor_id;
-    private String Location_id;
+    private String location_id;
+
+
     @ElementCollection
     @Column
     private List <String> selectedTools;
+
 
     public String getToolbox_id() {
         return toolbox_id;
@@ -46,17 +51,15 @@ public class ToolBox {
     }
 
     public String getLocation_id() {
-        return Location_id;
+        return location_id;
     }
 
     public void setLocation_id(String location_id) {
-        Location_id = location_id;
+
+        this.location_id = location_id;
     }
 
-    public List<String> getSelectedTools() {
-        return selectedTools;
-    }
-    public void setSelectedTools(List<String> selectedTools) {
-        this.selectedTools = selectedTools;
-    }
+
+
+
 }
