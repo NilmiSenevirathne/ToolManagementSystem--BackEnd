@@ -28,14 +28,14 @@ public class ToolController {
     @Autowired
     private ToolBoxService toolBoxService;
 
-    @Autowired
-    LocationTrackRepository locationTrackRepository;
+
 
 
     //retrieve tools data from database
     @GetMapping("/gettools")
     public List<Tool> getTools() {
         return toolRepo.findAll();
+
     }
 
     //get tools details from toolid

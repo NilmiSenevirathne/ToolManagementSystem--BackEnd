@@ -20,8 +20,15 @@ public class ToolBox {
     private String site_supervisor_id;
     private String location_id;
 
+
+
+    @ElementCollection
+    @Column
+    private List <String> selectedTools;
+
     @Column(name = "createdDate")  // Mapping to database column
     private LocalDateTime createdDate;
+
 
 
     public String getToolbox_id() {
