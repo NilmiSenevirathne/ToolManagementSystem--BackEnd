@@ -1,6 +1,7 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
+import com.BMKCompany.ToolManagementSystem.model.Tool;
 import com.BMKCompany.ToolManagementSystem.model.ToolBox;
 import com.BMKCompany.ToolManagementSystem.repository.ToolboxRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("toolbox")
+@RequestMapping("/toolbox")
 public class ToolboxController {
 
     private final ToolBoxService toolBoxService;
@@ -57,13 +58,6 @@ public class ToolboxController {
         }
     }
 
-    //get toolbox details from ID
-
-
-
-
-
-
     //delete toolbox details from the inventory
     @DeleteMapping("/delete/{toolbox_id}")
     public ResponseEntity<String> deleteTool(@PathVariable ("toolbox_id") String toolbox_id)
@@ -82,24 +76,28 @@ public class ToolboxController {
         }
     }
 
-    // Update toolbox details in the inventory
-//    @PutMapping("/update/{toolbox_id}") // Endpoint for updating toolbox by ID
-//    public ResponseEntity<ToolBox> updateToolbox(@PathVariable("toolbox_id") String toolbox_id,
-//                                                 @RequestBody ToolBox toolboxDetails) {
-//        Optional<ToolBox> toolboxOptional = toolboxRepo.findById(toolbox_id);
-//        if (toolboxOptional.isPresent()) {
-//            ToolBox existingToolbox = toolboxOptional.get();
-//            existingToolbox.setProject_id(toolboxDetails.getProject_id());
-//            existingToolbox.setSite_supervisor_id(toolboxDetails.getSite_supervisor_id());
-//            existingToolbox.setLocation_id(toolboxDetails.getLocation_id());
-//
-//            // Save updated toolbox details
-//            ToolBox updatedToolbox = toolboxRepo.save(existingToolbox);
-//            return ResponseEntity.ok(updatedToolbox);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
+
+    //update toolbox details
+    @PutMapping("/update/{toolbox_id}")
+    public ResponseEntity<ToolBox> updateToolbox(@RequestBody ToolBox newToolbox, @PathVariable("toolbox_id") String toolbox_id){
+
+        try {
+            Optional<ToolBox> existingToolboxOptional = toolboxRepo.findById(toolbox_id);
+            if (existingToolboxOptional.isPresent()) {
+                ToolBox existingToolbox = existingToolboxOptional.get();
+                existingToolbox.setProject_id(newToolbox.getProject_id());
+                existingToolbox.setSite_supervisor_id(newToolbox.getSite_supervisor_id());
+                existingToolbox.setLocation_id(newToolbox.getLocation_id());
+                ToolBox updatedToolbox = toolboxRepo.save(existingToolbox);
+                return ResponseEntity.ok(updatedToolbox);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 
