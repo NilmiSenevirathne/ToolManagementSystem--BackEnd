@@ -1,6 +1,13 @@
 package com.BMKCompany.ToolManagementSystem.model;
+
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 @Entity
 @Table(name = "Tool")
 public class Tool {
@@ -12,11 +19,7 @@ public class Tool {
     private int quantity;
     private int allocatedTool;
     private int availableTool;
-    @ManyToOne
-    @JoinColumn(name = "toolbox_id")
-    private ToolBox toolBox;
-    @OneToMany(mappedBy = "tool")
-    private Set<LocationTrack> locationTracks;
+
 
     public String getToolId() {
         return toolId;
@@ -66,13 +69,7 @@ public class Tool {
         this.availableTool = availableTool;
     }
 
-    public Set<LocationTrack> getLocationTracks() {
-        return locationTracks;
-    }
 
-    public void setLocationTracks(Set<LocationTrack> locationTracks) {
-        this.locationTracks = locationTracks;
-    }
 
 }
 
