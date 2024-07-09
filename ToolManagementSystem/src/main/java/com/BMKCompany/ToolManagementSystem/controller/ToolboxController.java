@@ -45,18 +45,18 @@ public class ToolboxController {
     }
 
 
-    //create New toolbox
-//    @PostMapping("/create")
-//    public ResponseEntity<ToolBox> newToolbox(@RequestBody ToolBox newToolbox) {
-//        try {
-//            newToolbox.setCreatedDate(LocalDateTime.now()); // Set current date and time
-//            ToolBox savedToolbox = toolboxRepo.save(newToolbox);
-//            System.out.println("Successfully created New Toolbox!");
-//            return ResponseEntity.status(HttpStatus.CREATED).body(savedToolbox);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+   // create New toolbox
+    @PostMapping("/create")
+    public ResponseEntity<ToolBox> newToolbox(@RequestBody ToolBox newToolbox) {
+        try {
+            newToolbox.setCreatedDate(LocalDateTime.now()); // Set current date and time
+            ToolBox savedToolbox = toolboxRepo.save(newToolbox);
+            System.out.println("Successfully created New Toolbox!");
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedToolbox);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
     //delete toolbox details from the inventory
     @DeleteMapping("/delete/{toolbox_id}")

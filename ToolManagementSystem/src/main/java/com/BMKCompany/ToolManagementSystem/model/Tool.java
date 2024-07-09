@@ -2,6 +2,9 @@ package com.BMKCompany.ToolManagementSystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+
+import java.util.Set;
+
 @Entity
 @Table(name = "Tool")
 public class Tool {
@@ -14,6 +17,9 @@ public class Tool {
     private int allocatedTool;
     private int availableTool;
 
+    @ManyToOne
+    @JoinColumn(name = "toolbox_id")
+    private ToolBox toolBox;
     @JsonIgnore
     @OneToMany(mappedBy = "tool")
     private Set<LocationTrack> locationTracks;
@@ -66,5 +72,19 @@ public class Tool {
         this.availableTool = availableTool;
     }
 
+    public ToolBox getToolBox() {
+        return toolBox;
+    }
 
+    public void setToolBox(ToolBox toolBox) {
+        this.toolBox = toolBox;
+    }
+
+    public Set<LocationTrack> getLocationTracks() {
+        return locationTracks;
+    }
+
+    public void setLocationTracks(Set<LocationTrack> locationTracks) {
+        this.locationTracks = locationTracks;
+    }
 }
