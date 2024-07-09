@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "locationtrack")
 public class LocationTrack {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ToolTrackid;
+      @Id
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
+      private Long ToolTrackid;
 
      @ManyToOne
      @JoinColumn(name="locationId" , nullable = false)
@@ -36,6 +36,7 @@ public class LocationTrack {
     public void setLocation(Location location) {
         this.location = location;
     }
+
 
     public Tool getTool() {
         return tool;
