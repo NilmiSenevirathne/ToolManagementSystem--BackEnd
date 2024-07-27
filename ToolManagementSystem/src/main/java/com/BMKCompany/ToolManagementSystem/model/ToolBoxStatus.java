@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class ToolBoxStatus {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ReportId")
     private Long ReportId;
 
@@ -20,9 +21,6 @@ public class ToolBoxStatus {
     private LocalDateTime created_at;
 
     // Getters and Setters
-
-
-
     public byte[] getStatusPDF() {
         return statusPDF;
     }

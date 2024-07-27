@@ -44,6 +44,15 @@ public class ToolboxController {
         return toolBox.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    //Check toolboxId already exists in the system
+    @GetMapping("/check/{toolbox_id}")
+    public ResponseEntity<Map<String,Boolean>> checkToolboxIdExists(@PathVariable String toolbox_id){
+        boolean exists = toolboxRepo.existsById(toolbox_id);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("exists",exists);
+        return ResponseEntity.ok(response);
+    }
+
 
    // create New toolbox
     @PostMapping("/create")

@@ -18,8 +18,8 @@ import java.security.NoSuchAlgorithmException;
 public class User {
 
     @Id
-    @GeneratedValue
-    private Long userid;
+
+    private String userid;
     private String username;
     private String password;
     private String firstname;
@@ -36,11 +36,11 @@ public class User {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] userimageData;
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
@@ -68,41 +68,7 @@ public class User {
         this.firstname = firstname;
     }
 
-    public static String encrypt(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-
-
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : messageDigest) {
-                hexString.append(String.format("%02x", b));
-            }
-
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("MD5 algorithm not found", e);
-        }
-    }
-
-    public static boolean verify(String input, String originalHash) {
-        String inputHash = encrypt(input);
-        return inputHash.equals(originalHash);
-    }
-
-
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
-
-//    public int getContact() {
-//        return contact;
-//    }
 //
-//    public void setContact(int contact) {
-//        this.contact = contact;
-//    }
-
     public Role getRole() {
         return role;
     }
