@@ -97,7 +97,14 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @PostMapping("/createUser")
+    public ResponseEntity<User> createUser(@RequestBody User newUser) {
+        if (userRepository.existsById(newUser.getUserid())) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        User savedUser = userRepository.save(newUser);
+        return ResponseEntity.ok(savedUser);
+    }
 
 
 
