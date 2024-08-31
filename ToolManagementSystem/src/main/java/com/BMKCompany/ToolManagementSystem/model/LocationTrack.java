@@ -10,7 +10,6 @@ public class LocationTrack {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Long ToolTrackid;
-
       @JsonBackReference
      @ManyToOne
      @JoinColumn(name="locationId" , nullable = false)

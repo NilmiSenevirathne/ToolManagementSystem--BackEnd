@@ -1,5 +1,10 @@
 package com.BMKCompany.ToolManagementSystem.model;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "ToolBox")
 public class ToolBox {
@@ -8,18 +13,16 @@ public class ToolBox {
     private String project_id;
     private String site_supervisor_id;
     private String location_id;
-    
-
-
-
-
-    @ElementCollection
-    @Column
-    private List <String> selectedTools;
 
     @Column(name = "createdDate")  // Mapping to database column
     private LocalDateTime createdDate;
 
+    @OneToMany(mappedBy = "toolBox", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tool> tools = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "toolbox_selected_tools", joinColumns = @JoinColumn(name = "toolbox_id"))
+    @Column(name = "tool_id")
+    private List<String> selectedTools = new ArrayList<>();
 
 
     public String getToolbox_id() {
@@ -54,6 +57,31 @@ public class ToolBox {
     public void setLocation_id(String location_id) {
 
         this.location_id = location_id;
+
     }
 
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public List<Tool> getTools() {
+        return tools;
+    }
+
+    public void setTools(List<Tool> tools) {
+        this.tools = tools;
+    }
+
+    public List<String> getSelectedTools() {
+        return selectedTools;
+    }
+
+    public void setSelectedTools(List<String> selectedTools) {
+        this.selectedTools = selectedTools;
+    }
 }

@@ -1,9 +1,10 @@
 package com.BMKCompany.ToolManagementSystem.controller;
-
 import com.BMKCompany.ToolManagementSystem.Exception.ProjectNotFoundException;
 import com.BMKCompany.ToolManagementSystem.model.Project;
 import com.BMKCompany.ToolManagementSystem.repository.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,12 @@ public class ProjectController {
     private ProjectRepo projectRepository;
 
     @PostMapping("/project")
-    public Project newProject(@RequestBody Project newProject) {
-        return projectRepository.save(newProject);
+    public ResponseEntity<String> newProject(@RequestBody Project newProject) {
+        if (projectRepository.existsById(newProject.getProjectId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Project ID already exists");
+        }
+        projectRepository.save(newProject);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Project created successfully");
     }
 
     @GetMapping("/Projects")

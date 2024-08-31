@@ -6,6 +6,7 @@ import com.BMKCompany.ToolManagementSystem.model.LocationTrack;
 import com.BMKCompany.ToolManagementSystem.Service.ToolBoxService;
 
 import com.BMKCompany.ToolManagementSystem.repository.LocationTrackRepository;
+import com.BMKCompany.ToolManagementSystem.repository.ToolboxRepo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,7 +38,6 @@ public class ToolController {
     @Autowired
     private LocationTrackRepository locationTrackRepository;
 
-
     //retrieve tools data from database
     @GetMapping("/gettools")
     public List<Tool> getTools() {
@@ -47,10 +47,10 @@ public class ToolController {
 
     //get tools details from toolid
     @GetMapping("/gettool/{toolId}")
-   public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
+    public ResponseEntity<Tool> getToolById(@PathVariable("toolId") String toolId){
         Optional<Tool> tool = toolRepo.findById(toolId);
         return tool.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-   }
+    }
 
     //Check toolId already exists in the system
     @GetMapping("/check/{toolId}")
@@ -115,8 +115,40 @@ public class ToolController {
     }
 
 
+    @GetMapping("/availableTools")
+    public ResponseEntity<Integer> calculateAvailableQuantity(){
+        List <Tool> allTools = toolRepo.findAll();
+        int availableQuantity = 0;
+        for(Tool tool: allTools){
+            availableQuantity += tool.getQuantity();
+        }
+        return ResponseEntity.ok(availableQuantity);
+    }
+    //get tool data to tool inventory chart
+    @GetMapping("/toolInventory")
+    public ResponseEntity<List<Map<String, Object>>> getToolInventory() {
+        List<Map<String, Object>> toolInventory = new ArrayList<>();
+        List<Tool> tools = toolRepo.findAll();
 
+        for (Tool tool : tools) {
+            Map<String, Object> toolData = new HashMap<>();
+            toolData.put("toolId", tool.getToolId());
+            toolData.put("toolName", tool.getToolName());
+            toolData.put("quantity", tool.getQuantity());
+            toolInventory.add(toolData);
+        }
 
+        return ResponseEntity.ok(toolInventory);
+    }
+
+//    @GetMapping("/{toolId}/locations")
+//    public List<Location> getToolLocations(@PathVariable String toolId) {
+//        List<LocationTrack> locationTracks = locationTrackRepository.findByToolToolId(toolId);
+//        return locationTracks.stream()
+//                .map(LocationTrack::getLocation)
+//                .distinct()
+//                .collect(Collectors.toList());
+//    }
 
     @GetMapping("/{toolId}/locations")
     public ResponseEntity<List<Location>> getToolLocations(@PathVariable String toolId) {
