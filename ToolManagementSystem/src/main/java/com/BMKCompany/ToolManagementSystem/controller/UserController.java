@@ -9,8 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -39,12 +38,17 @@ public class UserController {
     }
 
 
+    @GetMapping("/getUserDetails/{username}")
+    public User getUserDetailsINUsername(@PathVariable String username) {
+        return userService.getUserDetailsByUsername(username);
+    }
+
+
     // Endpoint to update user profile
-    @PutMapping("/updateUserProfile/{userid}")
-    public User updateUserProfile(@PathVariable String userid, @RequestBody User updatedUser) {
-        return userRepository.findById(userid)
+    @PutMapping("/updateUserProfile/{username}")
+    public User updateUserProfileByUsername(@PathVariable String username, @RequestBody User updatedUser) {
+        return userRepository.findByUsername(username)
                 .map(user -> {
-                    user.setUsername(updatedUser.getUsername());
                     user.setPassword(updatedUser.getPassword());
                     user.setFirstname(updatedUser.getFirstname());
                     user.setLastname(updatedUser.getLastname());
@@ -52,8 +56,9 @@ public class UserController {
                     user.setContact(updatedUser.getContact());
                     return userRepository.save(user);
                 })
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userid));
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username)); // Handle user not found
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
@@ -79,7 +84,7 @@ public class UserController {
             user.setNic(userDetails.getNic());
             user.setContact(userDetails.getContact());
             user.setRole(userDetails.getRole());
-            user.setImageData(userDetails.getImageData());
+//            user.setImageData(userDetails.getImageData());
 
             User updatedUser = userRepository.save(user);
             return ResponseEntity.ok(updatedUser);
@@ -105,6 +110,10 @@ public class UserController {
         User savedUser = userRepository.save(newUser);
         return ResponseEntity.ok(savedUser);
     }
+
+
+
+
 
 
 

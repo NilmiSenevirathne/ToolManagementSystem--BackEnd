@@ -18,8 +18,9 @@ import java.security.NoSuchAlgorithmException;
 public class User {
 
     @Id
-
     private String userid;
+
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     private String firstname;
@@ -32,9 +33,9 @@ public class User {
     private Role role;
 
 
-    @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] userimageData;
+//    @Lob
+//    @Column(columnDefinition = "LONGBLOB")
+//    private byte[] userimageData;
 
     public String getUserid() {
         return userid;
@@ -77,12 +78,12 @@ public class User {
         this.role = role;
     }
 
-    public byte[] getImageData() {
-        return userimageData;
-    }
-
-    public void setImageData(byte[] imageData) {
-        this.userimageData = userimageData;
-    }
+//    public byte[] getImageData() {
+//        return userimageData;
+//    }
+//
+//    public void setImageData(byte[] imageData) {
+//        this.userimageData = userimageData;
+//    }
 
 }

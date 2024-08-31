@@ -22,13 +22,15 @@ public class LoginController {
     private LoginRepo loginRepo;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<String> login(@RequestBody Map<String, String> credentials, HttpServletRequest request) {
         String username = credentials.get("username");
         String password = credentials.get("password");
 
         User user = loginRepo.findByUsernameAndPassword(username, password);
 
         if (user != null) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("loggedInUser",user);
             return ResponseEntity.ok(user.getRole().toString());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
@@ -49,5 +51,17 @@ public class LoginController {
     public ResponseEntity<List<User>> listUser() {
         Iterable<User> userList = loginRepo.findAll();
         return ResponseEntity.ok((List<User>) userList);
+    }
+
+    @GetMapping("/currentUser")
+    public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            User user = (User) session.getAttribute("loggedInUser");
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 }
