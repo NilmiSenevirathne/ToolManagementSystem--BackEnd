@@ -1,14 +1,16 @@
 package com.BMKCompany.ToolManagementSystem.controller;
 
 import com.BMKCompany.ToolManagementSystem.Service.UserService;
-import com.BMKCompany.ToolManagementSystem.model.Tool;
+import com.BMKCompany.ToolManagementSystem.model.Role;
 import com.BMKCompany.ToolManagementSystem.model.User;
 import com.BMKCompany.ToolManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -26,6 +28,7 @@ public class UserController {
     // Endpoint to fetch user details for toolbox creation
     @GetMapping("/getUsertoolbox")
     public List<User> getUserForToolbox() {
+        List<User> users = userService.getAllUsers();
         return userRepository.findAll();
     }
 
@@ -38,9 +41,15 @@ public class UserController {
     }
 
 
-    @GetMapping("/getUserDetails/{username}")
-    public User getUserDetailsINUsername(@PathVariable String username) {
-        return userService.getUserDetailsByUsername(username);
+    // Endpoint to get user details by username
+    @GetMapping("/getUserDetailsByUsername")
+    public ResponseEntity<User> getUserDetailsByUsername(@RequestParam String username) {
+        User user = userService.getUserDetailsByUsername(username);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -52,8 +61,10 @@ public class UserController {
                     user.setPassword(updatedUser.getPassword());
                     user.setFirstname(updatedUser.getFirstname());
                     user.setLastname(updatedUser.getLastname());
+                    user.setGender(updatedUser.getGender());
                     user.setNic(updatedUser.getNic());
                     user.setContact(updatedUser.getContact());
+                    user.setImageData(updatedUser.getUserimageData());
                     return userRepository.save(user);
                 })
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + username)); // Handle user not found
@@ -81,10 +92,11 @@ public class UserController {
             user.setPassword((userDetails.getPassword())); // Encrypt the password
             user.setFirstname(userDetails.getFirstname());
             user.setLastname(userDetails.getLastname());
+            user.setGender(userDetails.getGender());
             user.setNic(userDetails.getNic());
             user.setContact(userDetails.getContact());
             user.setRole(userDetails.getRole());
-//            user.setImageData(userDetails.getImageData());
+            user.setImageData(userDetails.getUserimageData());
 
             User updatedUser = userRepository.save(user);
             return ResponseEntity.ok(updatedUser);
@@ -102,13 +114,51 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping("/createUser")
-    public ResponseEntity<User> createUser(@RequestBody User newUser) {
-        if (userRepository.existsById(newUser.getUserid())) {
-            return ResponseEntity.badRequest().body(null);
+    public ResponseEntity<String> createUser(
+            @RequestParam("userid") String userid,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("gender") String gender,
+            @RequestParam("nic") String nic,
+            @RequestParam("contact") Long contact,
+            @RequestParam("role") Role role,
+            @RequestParam("userimageData") MultipartFile userimageData // Changed to MultipartFile
+    ) {
+        // Create and save user entity here
+
+        User newUser = new User();
+        newUser.setUserid(userid);
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setFirstname(firstname);
+        newUser.setLastname(lastname);
+        newUser.setGender(gender);
+        newUser.setNic(nic);
+        newUser.setContact(contact);
+        newUser.setRole(role);
+
+        // Handle file upload
+        try {
+            if (userimageData != null && !userimageData.isEmpty()) {
+                newUser.setUserimageData(userimageData.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing image.");
         }
+
+        // Check if user already exists
+        if (userRepository.existsById(newUser.getUserid())) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        // Save the new user
         User savedUser = userRepository.save(newUser);
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.ok("User registered successfully!");
     }
 
 

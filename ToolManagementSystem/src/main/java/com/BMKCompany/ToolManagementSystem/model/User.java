@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +22,7 @@ public class User {
     private String password;
     private String firstname;
     private String lastname;
+    private String gender;
     private String nic;
     private Long contact;
 
@@ -33,9 +31,9 @@ public class User {
     private Role role;
 
 
-//    @Lob
-//    @Column(columnDefinition = "LONGBLOB")
-//    private byte[] userimageData;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] userimageData;
 
     public String getUserid() {
         return userid;
@@ -78,12 +76,28 @@ public class User {
         this.role = role;
     }
 
-//    public byte[] getImageData() {
-//        return userimageData;
-//    }
-//
-//    public void setImageData(byte[] imageData) {
-//        this.userimageData = userimageData;
-//    }
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public byte[] getImageData() {
+        return userimageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.userimageData = userimageData;
+    }
 
 }
