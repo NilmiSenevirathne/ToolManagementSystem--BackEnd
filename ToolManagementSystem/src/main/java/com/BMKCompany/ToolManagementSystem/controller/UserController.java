@@ -6,6 +6,7 @@ import com.BMKCompany.ToolManagementSystem.model.User;
 import com.BMKCompany.ToolManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,20 +84,39 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User userDetails) {
+    @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<User> updateUser(
+            @PathVariable String id,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("gender") String gender,
+            @RequestParam("nic") String nic,
+            @RequestParam("contact") Long contact,
+            @RequestParam("role") Role role,
+            @RequestParam("userimageData") MultipartFile userimageData) {
+
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setUsername(userDetails.getUsername());
-            user.setPassword((userDetails.getPassword())); // Encrypt the password
-            user.setFirstname(userDetails.getFirstname());
-            user.setLastname(userDetails.getLastname());
-            user.setGender(userDetails.getGender());
-            user.setNic(userDetails.getNic());
-            user.setContact(userDetails.getContact());
-            user.setRole(userDetails.getRole());
-            user.setImageData(userDetails.getUserimageData());
+            user.setUsername(username);
+            user.setPassword(password); // Encrypt the password here
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setGender(gender);
+            user.setNic(nic);
+            user.setContact(contact);
+            user.setRole(role);
+
+            try {
+                if (userimageData != null && !userimageData.isEmpty()) {
+                    user.setUserimageData(userimageData.getBytes());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
 
             User updatedUser = userRepository.save(user);
             return ResponseEntity.ok(updatedUser);
