@@ -55,21 +55,45 @@ public class UserController {
 
     // Endpoint to update user profile
     @PutMapping("/updateUserProfile/{username}")
-    public User updateUserProfileByUsername(@PathVariable String username, @RequestBody User updatedUser) {
+    public ResponseEntity<?> updateUserProfileByUsername(
+            @PathVariable String username,
+            @RequestParam("contact") Long contact,
+            @RequestParam("firstname") String firstname,
+            @RequestParam("lastname") String lastname,
+            @RequestParam("gender") String gender,
+            @RequestParam("nic") String nic,
+            @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword,
+            @RequestParam("role") Role role,
+            @RequestParam("username") String updatedUsername,
+            @RequestParam(value = "userimageData", required = false) MultipartFile userimageData) {
+
         return userRepository.findByUsername(username)
                 .map(user -> {
-                    user.setPassword(updatedUser.getPassword());
-                    user.setFirstname(updatedUser.getFirstname());
-                    user.setLastname(updatedUser.getLastname());
-                    user.setGender(updatedUser.getGender());
-                    user.setNic(updatedUser.getNic());
-                    user.setContact(updatedUser.getContact());
-                    user.setImageData(updatedUser.getUserimageData());
-                    return userRepository.save(user);
-                })
-                .orElseThrow(() -> new RuntimeException("User not found with username: " + username)); // Handle user not found
-    }
+                    user.setContact(contact);
+                    user.setFirstname(firstname);
+                    user.setLastname(lastname);
+                    user.setGender(gender);
+                    user.setNic(nic);
+                    user.setPassword(password);
+                    user.setRole(role);
+                    user.setUsername(updatedUsername);
 
+                    // Handle the image upload (if present)
+                    if (userimageData != null && !userimageData.isEmpty()) {
+                        try {
+                            byte[] imageBytes = userimageData.getBytes();
+                            user.setImageData(imageBytes); // Assuming you store the image as byte[]
+                        } catch (Exception e) {
+                            return ResponseEntity.badRequest().body("Error processing image file");
+                        }
+                    }
+
+                    userRepository.save(user);
+                    return ResponseEntity.ok("User profile updated successfully");
+                })
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
