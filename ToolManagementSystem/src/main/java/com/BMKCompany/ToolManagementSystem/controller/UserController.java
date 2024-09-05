@@ -43,15 +43,14 @@ public class UserController {
 
 
     // Endpoint to get user details by username
-    @GetMapping("/getUserDetailsByUsername")
-    public ResponseEntity<User> getUserDetailsByUsername(@RequestParam String username) {
+    @GetMapping("/getUserInfo/{username}")
+    public ResponseEntity<User> getUserDetailsByUsername(@PathVariable("username") String username) {
         User user = userService.getUserDetailsByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(user);
     }
+
+
+
 
 
     // Endpoint to update user profile
