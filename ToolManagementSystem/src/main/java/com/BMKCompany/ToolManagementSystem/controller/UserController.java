@@ -54,7 +54,7 @@ public class UserController {
 
 
     // Endpoint to update user profile
-    @PutMapping("/updateUserProfile/{username}")
+    @PutMapping(value = "/updateUserProfile/{username}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<?> updateUserProfileByUsername(
             @PathVariable String username,
             @RequestParam("contact") Long contact,
@@ -90,6 +90,7 @@ public class UserController {
                     }
 
                     userRepository.save(user);
+                    System.out.println("User profile updated successfully for username: " + username);
                     return ResponseEntity.ok("User profile updated successfully");
                 })
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
@@ -201,6 +202,7 @@ public class UserController {
 
         // Save the new user
         User savedUser = userRepository.save(newUser);
+        System.out.println("User Details updated successfully !");
         return ResponseEntity.ok("User registered successfully!");
     }
 
